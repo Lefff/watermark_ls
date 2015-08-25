@@ -17,7 +17,7 @@ $ git clone https://github.com/Lefff/watermark_ls.git
   $ npm install && bower install
   ```
 
-<!-- ## Использование
+## Использование
 
   ```sh
   #Запуск сборщика проекта (задача по умолчанию)
@@ -34,4 +34,4 @@ $ git clone https://github.com/Lefff/watermark_ls.git
 
   #Компиляция SASS
   $ gulp sass
-  ``` -->
+  ```
