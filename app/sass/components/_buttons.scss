@@ -1,0 +1,50 @@
+.push-top {
+	display: block;
+	position: absolute;
+	right: 10px;
+	width: 77px;
+	bottom: $footer-height + 55px;
+	background-color: $color-main_blue;
+	color: $color-main;
+	text-align: center;
+	padding: 4px 0;
+	text-decoration: none;
+	font-size: $font-size_main + 2px;
+	font-weight: 700;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity .3s, visibility .3s;
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		margin-left: -6px;
+		border: 6px solid transparent;
+	}
+
+	&:before {
+		bottom: 100%;
+		border-bottom-color: $color-main_blue;
+	}
+
+	&:after {
+		bottom: 0;
+		border-bottom-color: $color-main;
+	}
+
+	&:hover {
+		opacity: .8;
+	}
+
+	&_fixed {
+		position: fixed;
+		bottom: 20px;
+	}
+
+	&_hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

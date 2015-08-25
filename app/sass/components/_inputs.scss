@@ -1,0 +1,76 @@
+.form-cmp {
+	// Dropdown
+	&__dropdown {
+		border: 1px solid $color-main_light-blue;
+		line-height: 1;
+		position: relative;
+
+		&-selected-val {
+			display: block;
+			min-width: 131px;
+			padding: 5px;
+			padding-right: 30px;
+			font-size: $font-size_main - 1px;
+			color: $color-main_dark-gray;
+			box-sizing: border-box;
+			position: relative;
+			cursor: pointer;
+			text-decoration: none;
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 25px;
+				height: 100%;
+				background: $color-main_blue url(#{$path-images}/bottom_arr.png) no-repeat 50% 50%;
+			}
+		}
+
+		&-list {
+			@include clean-list;
+
+			display: none;
+
+			position: absolute;
+			top: 100%;
+			left: -1px;
+			width: 100%;
+			z-index: 1;
+			background-color: #fff;
+			border: 1px solid $color-main_light-blue;
+		}
+
+		&-item {
+			display: block;
+
+			&:first-child {
+				padding-top: 2px;
+			}
+
+			&_active {
+				.form-cmp {
+					&__dropdown {
+						&-link {
+							color: #bed1e3;
+						}
+					}
+				}
+			}
+		}
+
+		&-link {
+			display: block;
+			padding: 5px;
+			padding-right: 30px;
+			font-size: $font-size_main - 1px;
+			color: $color-main_dark-gray;
+			box-sizing: border-box;
+			position: relative;
+			cursor: pointer;
+			text-decoration: none;
+		}
+	}
+}

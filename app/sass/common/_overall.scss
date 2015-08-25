@@ -1,0 +1,23 @@
+::selection {
+	color: $color-main;
+	background-color: rgba( $color-main_violet, .5 );
+}
+html {
+	min-height: 100%;
+	position: relative;
+}
+body {
+	font: $font-size_main #{'/'} $line-height_main #{$font-family_main};
+	color: $color-main_dark-gray;
+	padding-bottom: $footer-height;
+}
+
+.wrapper {
+	width: $wrap-size_desktop;
+	margin: auto;
+
+	&_relative {
+		min-height: 100%;
+		position: relative;
+	}
+}

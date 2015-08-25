@@ -1,0 +1,22 @@
+include ../helpers/vars
+include ../helpers/mixins
+
+doctype html
+html.no-js(lang='ru-RU')
+	head
+		include ../common/head
+		
+		block title
+			+siteTitle()
+
+		block headBottom
+
+	body
+		+browserHappy( IESupport )
+
+		include ../common/header
+
+		block pageContent
+
+		include ../common/footer
+		include ../common/scripts

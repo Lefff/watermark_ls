@@ -1,0 +1,224 @@
+.nav {
+	&__list {
+		@include clean-list;
+	}
+
+	&__item {
+		&-link {
+			background-color: $color-main_light-gray;
+			text-decoration: none;
+			font-size: $font-size_main;
+			color: $color-main_dark-gray;
+
+			&:hover {
+				background-color: $color-main_light-blue;
+			}
+		}
+
+		&_active {
+			.nav {
+				&__item {
+					&-link {
+						background-color: $color-main_blue;
+						color: $color-main;
+						cursor: default;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	//Sidebar Navigation
+	&_sidebar {
+		//Doesn't work with gulp-sass
+		//@extend .nav;
+		
+		overflow: hidden;
+		margin-bottom: 20px;
+
+		.nav {
+			&__item {
+				display: block;
+				border-top: 1px solid $color-main;
+				position: relative;
+
+				&:before {
+					content: '';
+					display: block;
+					width: 100%;
+					height: 1px;
+					position: absolute;
+					left: 0;
+					top: -2px;
+					background-color: $color-main_light-blue;
+				}
+
+				&:first-child {
+					border-top: 0;
+				}
+
+				&-link {
+					display: block;
+					padding: 3px 18px;
+					transition: background-color .2s, color .2s;
+				}
+
+				&_has-submenu {
+					.nav {
+						&__item {
+							&-link {
+								padding-left: 30px;
+								background-image: url(#{$path-images}/right_arr.png);
+								background-repeat: no-repeat;
+								background-position: 18px 9px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.nav-main {
+	margin-top: -21px;
+	margin-bottom: 18px;
+
+	&__list {
+		@include clearfix;
+
+		width: 100%;
+		font-size: 0;
+	}
+
+	&__item {
+		display: inline-block;
+		background-color: #f7f7f7;
+		position: relative;
+
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			border: 20px solid transparent;
+			border-left-width: 15px;
+			border-right-width: 15px;
+			top: 0;
+			transition: border-color .2s;
+		}
+
+		&:before {
+			border-top-color: $color-main_light-gray;
+			border-bottom-color: $color-main_light-gray;
+			border-right-color: $color-main_light-gray;
+			left: -30px;
+		}
+
+		&:after {
+			border-left-color: $color-main_light-gray;
+			right: -30px;
+			z-index: 2;
+		}
+
+		&-link {
+			background-color: $color-main_light-gray;
+			display: block;
+			position: relative;
+			padding: 9px 5px 9px 30px;
+			text-decoration: none;
+			font-size: $font-size_main;
+			color: $color-main_dark-gray;
+			box-shadow: 0 1px 0 rgba(#000, .15);
+			transition: background-color .2s, color .2s;
+			z-index: 1;
+			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				width: 0;
+				height: 0;
+				border: 20px solid transparent;
+				border-left-width: 15px;
+				border-right-width: 15px;
+				top: 0;
+				left: 0;
+				transition: border-color .2s;
+				border-left-color: rgba(#000, .5);
+
+			}
+		}
+
+		&:first-child {
+			.nav-main {
+				&__item {
+					&-link {
+						padding-left: 0;
+
+						&:before {
+							left: -30px;
+							border-top-color: rgba(#000, .5);
+							border-bottom-color: rgba(#000, .5);
+							border-right-color: rgba(#000, .5);
+							border-left-color: transparent;
+							z-index: -1;
+						}
+					}
+				}
+			}
+		}
+
+		&:hover {
+			&:after {
+				border-left-color: $color-main_light-blue;
+			}
+
+			.nav-main {
+				&__item {
+					&-link {
+						background-color: $color-main_light-blue;
+					}
+				}
+			}
+		}
+
+		&:first-child:hover {
+			&:before {
+				border-top-color: $color-main_light-blue;
+				border-bottom-color: $color-main_light-blue;
+				border-right-color: $color-main_light-blue;
+			}
+		}
+
+		&_active {
+			&:after {
+				border-left-color: $color-main_blue;
+			}
+			&:hover {
+				background-color: $color-main_blue;
+				color: $color-main;
+
+				&:after {
+					border-left-color: $color-main_blue;
+				}
+			}
+			.nav-main {
+				&__item {
+					&-link {
+						background-color: $color-main_blue;
+						color: $color-main;
+
+						&:hover {
+							background-color: $color-main_blue;
+							color: $color-main;
+						}
+					}
+				}
+			}
+		}
+	}
+}

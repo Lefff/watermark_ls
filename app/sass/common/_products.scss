@@ -1,0 +1,145 @@
+$image-wrap-size: 190px;
+
+.products {
+	&__grid {
+		margin-bottom: 38px;
+	}
+	&__list {
+		@include clean-list;
+	}
+	&-wrap {
+		// overflow: hidden;
+	}
+	&__images {
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+		vertical-align: middle;
+
+		&-big-thumb {
+			display: none;
+		}
+	}
+
+
+
+	//Product Grid View - By default = lines view
+	&__item {
+		@include clearfix;
+
+		display: block;
+		border: 1px solid $color-main_light-blue;
+		margin-top: 20px;
+		min-height: 160px;
+		position: relative;
+		box-shadow: 0 1px 8px rgba( #000, 0 );
+		transition: box-shadow .3s;
+		box-sizing: border-box;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:hover {
+			box-shadow: 0 1px 8px rgba( #000, .15 );
+		}
+
+		&-image {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: $image-wrap-size;
+			text-align: center;
+			height: 100%;
+			overflow: hidden;
+			font-size: 0;
+
+			&:before {
+				content: '';
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+
+		&-descr {
+			float: right;
+			width: 740px - $image-wrap-size - 2px;
+			padding: 28px 0;
+		}
+
+		&-title {
+			margin-bottom: 15px;
+		}
+	}
+
+	&__info {
+		font-size: $font-size_main - 1px;
+		line-height: $line-height_main - .1;
+		&-cols {
+			display: none;
+		}
+	}
+
+
+
+	//Product Grid View - Column
+	&__grid {
+		&_cols {
+			.products {
+				&__list {
+					font-size: 0;
+					margin-top: -25px;
+					margin-left: -25px;
+				}
+				&__images {
+					&-big-thumb {
+						display: block;
+					}
+
+					&-small-thumb {
+						display: none;
+					}
+				}
+
+				&__item {
+					display: inline-block;
+					vertical-align: top;
+					width: 230px;
+					min-height: 355px;
+					margin: 25px 0 0 25px;
+					padding: 14px;
+
+					&-image {
+						position: static;
+						width: 100%;
+						height: 170px;
+					}
+
+					&-descr {
+						width: 100%;
+						padding: 0;
+					}
+
+					&-title {
+						font-size: $font-size_main;
+					}
+				}
+
+				&__info {
+					&-cols {
+						display: block;
+					}
+
+					&-plain {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+header.header
+	.wrapper
+		.header__logo
+			a.header__logo-link(href='/' title='#{siteName}')
+				img.header__logo-img(src='img/as-logo.png' alt='#{siteName}')
+				.header__logo-title #{siteName}
+
+		.header__info.header__info_right
+			.header__phone
+				a.header__phone-link(href='tel:+79213221232')
+					span.header__phone-small-digits.header__phone-small-digits_bold +7 (921)
+					| 322 12 32
+			.header__email
+				a.text-link.text-link_big(href='mailto:manager@company.com') manager@company.com
+
++nav('nav-main', menuTop, 1)

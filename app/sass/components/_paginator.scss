@@ -1,0 +1,36 @@
+.paginator {
+	display: inline-block;
+	vertical-align: top;
+
+	&__list {
+		@include clean-list;
+		font-size: 0;
+	}
+
+	&__item {
+		display: inline-block;
+		vertical-align: top;
+		margin-left: 8px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&-link {
+			@extend .text-link;
+
+			font-size: $font-size_main;
+		}
+
+		&_active &-link {
+			color: $color-main_dark-gray;
+			border-bottom: none;
+			cursor: default;
+		}
+	}
+
+	&_top-side {
+		margin-left: 27px;
+		padding: 5px 0px;
+	}
+}

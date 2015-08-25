@@ -1,0 +1,45 @@
+.breadcrumbs {
+	padding: 5px 0;
+
+	&__list {
+		@include clean-list;
+		font-size: 0;
+	}
+
+	&__item {
+		display: inline-block;
+		vertical-align: top;
+
+		&:before {
+			content: ">";
+			font-size: 10px;
+			color: #5c7b98;
+			display: inline-block;
+			vertical-align: baseline;
+			line-height: 1;
+			margin: 0 3px;
+		}
+
+		&:first-child:before {
+			display: none;
+		}
+
+		&-link {
+			@extend .text-link;
+
+			font-size: $font-size_main - 1px;
+		}
+
+		&_active &-link {
+			color: $color-main_dark-gray;
+			border-bottom: none;
+			cursor: default;
+		}
+	}
+
+	&-container {
+		&_left {
+			float: left;
+		}
+	}
+}
