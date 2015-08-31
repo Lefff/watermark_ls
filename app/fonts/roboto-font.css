@@ -1,0 +1,39 @@
+/* font-family: "RobotoLight"; */
+@font-face {
+    font-family: "RobotoLight";
+    src: url("RobotoLight.eot");
+    src: url("RobotoLight.eot?#iefix")format("embedded-opentype"),
+    url("RobotoLight.woff") format("woff"),
+    url("RobotoLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoRegular"; */
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("RobotoRegular.eot");
+    src: url("RobotoRegular.eot?#iefix")format("embedded-opentype"),
+    url("RobotoRegular.woff") format("woff"),
+    url("RobotoRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoMedium"; */
+@font-face {
+    font-family: "RobotoMedium";
+    src: url("RobotoMedium.eot");
+    src: url("RobotoMedium.eot?#iefix")format("embedded-opentype"),
+    url("RobotoMedium.woff") format("woff"),
+    url("RobotoMedium.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "SegoeUILight";
+    src: url("SegoeUILight.eot");
+    src: url("SegoeUILight.eot?#iefix")format("embedded-opentype"),
+    url("SegoeUILight.woff") format("woff"),
+    url("SegoeUILight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

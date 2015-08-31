@@ -3,9 +3,24 @@ var gulp            = require('gulp'),
 	runSequence     = require('run-sequence'),
 	browserSync     = require('browser-sync'),
 	wiredep         = require('wiredep').stream;
+	compass         = require('gulp-compass');
 
 var $      = gulpLoadPlugins(),
 	reload = browserSync.reload;
+
+
+
+// Компиляция scss компасом
+
+gulp.task('compass', function() {
+	return gulp.src('./src/*.scss')
+			.pipe(compass({
+				config_file: './config.rb',
+    			css: 'app/css',
+    			sass: 'app/sass'
+    		}))
+    		.pipe(gulp.dest('app/assets/temp'));
+});
 
 
 
@@ -86,7 +101,7 @@ gulp.task('build', function () {
 
 
 // Запуск сервера
-gulp.task('server', function () {  
+gulp.task('server', function () {
 	browserSync({
 		port: 9000,
 		server: {
