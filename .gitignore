@@ -1,5 +1,5 @@
 node_modules
 bower
-app/css
+app/css/main.css
 app/*.html
 dist
