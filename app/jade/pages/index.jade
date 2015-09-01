@@ -37,25 +37,22 @@ html
                         h1.gen-heading Генератор водяных знаков
                     .gen-body
                         .img-box
-                            img(class="loaded-img" src="img/pics/viking.jpg")
+                            .wrapper__img-parent#wrapper__img-parent
+                                img.img-parent#img-parent(src="")
+                                .wrapper__watermark#wrapper__watermark
+                                    img.watermark#watermark(src="")
                 .right-column
                     .settings-head
                         .settings-heading Настройки
                     .settings-body
                         form.settings-form
                             .settings-block.setting-block_decorated
-                                .settings-block__hint Исходное изображение
                                 .fileupload-wrap
-                                    .fileupload-fake
-                                        #fileupload-label Загрузите изображение
-                                        .selectbutton
-                                        input(type="file" name="uploadedImg" id="fileupload" placeholder="Загрузите изображение" onchange="getName(this.value);")
-                                .settings-block__hint Водяной знак
+                                    .settings-block__hint Исходное изображение
+                                    input(type="file" placeholder="изображение" name="loaded_img")
                                 .fileupload-wrap
-                                    .fileupload-fake
-                                        #fileupload-label Загрузите изображение
-                                        .selectbutton
-                                        input(type="file" name="watermark" id="fileupload" placeholder="Загрузите изображение" onchange="getName(this.value);")
+                                    .settings-block__hint Водяной знак
+                                    input(type="file" placeholder="водяной знак" name="loaded_watermark")
                             .settings-block.setting-block_decorated
                                 .settings-block__hint Положение
                                 #tab-container.no-jump
@@ -79,7 +76,10 @@ html
                                                     input(id="gutter-width" value="0")
                                     #tabs2.tabs-wrapper
                                         .canvas-preview
-                                            span.position-trigger
+                                            //- span.position-trigger
+                                            .top-center.watermark-position.active-watermark-position
+                                            each position in ['top-center','top-right','middle-left','middle-center','middle-right', 'bottom-left', 'bottom-center', 'bottom-right']
+                                                .watermark-position(id = position)
                                         ul.parameters-list.right-float
                                             li.parameter
                                                 .parametr-hint X
@@ -102,8 +102,9 @@ html
         script.
             window.jQuery || document.write('<script src="bower/jquery/jquery.min.js">')
         script(src="js/jquery-ui.min.js")
-        script(src="js/upload.js")
+        //- script(src="js/upload.js")
         script(src="js/jquery.easytabs.min.js")
+        script(src="js/jquery.nicefileinput.min.js")
         script(src="js/custom.js")
 
 

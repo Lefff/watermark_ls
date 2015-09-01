@@ -10,8 +10,8 @@ $(function() {
     });
 });
 
-//вызывает спиннер из JQ UI
-//Документация: http://api.jqueryui.com/spinner/
+// вызывает спиннер из JQ UI
+// http://api.jqueryui.com/spinner/
 $(function() {
     $('#gutter-width').spinner({
         max: 100,
@@ -31,10 +31,19 @@ $(function() {
     });
 });
 
-//вызывает табы
-//http://os.alfajango.com/easytabs/#tabs1-js
+// вызывает табы
+// http://os.alfajango.com/easytabs/#tabs1-js
 $(function() {
     $( "#tab-container" ).easytabs({
         animationSpeed : "fast"
     });
 });
+
+// стилизация fileinput'ов
+// http://moro.es/projects/jquery-nicefileinput-js/
+$(function() {
+    $("input[type=file]").nicefileinput();
+});
+
+
+

@@ -2,3 +2,4 @@ node_modules
 bower
 app/*.html
 dist
+.DS_Store
