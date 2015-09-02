@@ -1,10 +1,12 @@
-@import "compass/reset";
+// Eric Meyer Reset
+@import "helpers/_meyer-reset.scss";
 // Typography
 @import "../fonts/roboto-font.css";
+// JQ UI Custom styles
+@import "helpers/_jq-ui-custom.scss";
 //Init Styles
 @import "helpers/_vars";
 @import "helpers/_mixins";
-
 //Components
 @import "components/_buttons";
 
@@ -228,7 +230,7 @@ button::-moz-focus-inner {
     vertical-align: middle;
     text-align: center;
     overflow: hidden;
-    background-color: #2b2729;
+    background: url(../img/common/canvas_bg.jpg) #2b2729;
 }
 
 .wrapper__img-parent{
@@ -311,6 +313,20 @@ button::-moz-focus-inner {
     bottom: 0;
     background: url(../img/common/upload-icon.png) 10px 5px no-repeat;
     background-color: $color-bg-pink;
+    transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    &:hover {
+        background-color: #e3736c; /* Old browsers */
+        background-color: -moz-linear-gradient(top,  #e3736c 0%, #f97e76 100%); /* FF3.6+ */
+        background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e3736c), color-stop(100%,#f97e76)); /* Chrome,Safari4+ */
+        background-color: -webkit-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* Chrome10+,Safari5.1+ */
+        background-color: -o-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* Opera 11.10+ */
+        background-color: -ms-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* IE10+ */
+        background-color: linear-gradient(to bottom,  #e3736c 0%,#f97e76 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3736c', endColorstr='#f97e76',GradientType=0 ); /* IE6-9 */
+    }
 }
 .NFI-filename {
     height: 23px;
@@ -337,7 +353,7 @@ button::-moz-focus-inner {
     overflow: hidden;
     border: 1px solid $color-bg-grey-dark;
     border-radius: 3px;
-    background: url(../img/common/canvas-bg.png) #dbe1e8;
+    background: url(../img/common/canvas_preview_bg.png) #dbe1e8;
 }
 .gutter-preview-vertical,
 .gutter-preview-horizontal{

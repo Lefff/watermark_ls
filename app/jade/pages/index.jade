@@ -11,7 +11,7 @@ html
         meta(name="description" content="сайт на jade & sass")
         //- STYLES
         link(rel='stylesheet' type='text/css' href='bower/normalize.css/normalize.css' media='screen, projection, print')
-        link(rel='stylesheet' type='text/css' href='css/jquery-ui.min.css' media='screen, projection, print')
+        link(rel='stylesheet' type='text/css' href='bower/jquery-ui/themes/base/jquery-ui.min.css' media='screen, projection, print')
         link(rel='stylesheet' type='text/css' href='css/main.css' media='screen, projection, print')
         //- FAVICON
         link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
@@ -76,7 +76,6 @@ html
                                                     input(id="gutter-width" value="0")
                                     #tabs2.tabs-wrapper
                                         .canvas-preview
-                                            //- span.position-trigger
                                             .top-center.watermark-position.active-watermark-position
                                             each position in ['top-center','top-right','middle-left','middle-center','middle-right', 'bottom-left', 'bottom-center', 'bottom-right']
                                                 .watermark-position(id = position)
@@ -98,11 +97,10 @@ html
                                     button(type="submit" class="pink-btn right-float") Скачать
             include ../common/footer
         //- JS
-        script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
         script.
-            window.jQuery || document.write('<script src="bower/jquery/jquery.min.js">')
-        script(src="js/jquery-ui.min.js")
-        //- script(src="js/upload.js")
+            window.jQuery || document.write('<script src="bower/jquery/dist/jquery.min.js">')
+        script(src="bower/jquery-ui/jquery-ui.min.js")
         script(src="js/jquery.easytabs.min.js")
         script(src="js/jquery.nicefileinput.min.js")
         script(src="js/custom.js")
