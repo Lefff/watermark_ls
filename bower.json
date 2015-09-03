@@ -2,6 +2,8 @@
   "name": "watermark",
   "private": true,
   "dependencies" : {
-    "normalize.css": "~3.0.3"
+    "normalize.css": "~3.0.3",
+    "blueimp-file-upload": "jquery-file-upload#~9.11.2",
+    "jquery": "~2.1.4"
   }
 }
