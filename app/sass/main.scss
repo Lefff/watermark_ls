@@ -1,28 +1,19 @@
+//Eric Meyer Reset
+@import "helpers/_meyer-reset.scss";
+
 //Init Styles
-/*
 @import "helpers/vars";
-@import "helpers/functions";
 @import "helpers/mixins";
-@import "base/fonts";
-*/
+
+//Typography
+@import "../fonts/roboto-font.css";
+
+//Overall Styles
+@import "common/overall";
+
+//Vendors Custom Styles
+@import "helpers/jq-ui-custom.scss";
 
 //Components
-/*
-@import "components/grid";
-@import "components/text";
-@import "components/nav";
-@import "components/breadcrumbs";
-@import "components/paginator";
-@import "components/inputs";
 @import "components/buttons";
-*/
-
-//Common
-/*
-@import "common/footer";
-*/
-
-//Pages
-/*
-@import "pages/home";
-*/
+@import "components/preloader";

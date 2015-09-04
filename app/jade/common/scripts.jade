@@ -1,19 +1,9 @@
-// JS Scripts 
-
-//- JS Part of Bower Packages
-// build:js js/vendor.js 
-// bower:js
-script(src='/bower/jquery/dist/jquery.js')
-// endbower 
-// endbuild 
-
-//- Site JS
-// build:js js/main.js 
-script(src="js/toTop.js")
-script(src="js/gridView.js")
-script(src="js/main.js")
-// endbuild 
-
-//- Append some files to head
-block append headBottom
-	| TEEEEST
+//- JS
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+script.
+	window.jQuery || document.write('<script src="bower/jquery/dist/jquery.min.js">')
+script(src="bower/jquery-ui/jquery-ui.min.js")
+script(src="js/jquery.easytabs.min.js")
+script(src="js/jquery.nicefileinput.min.js")
+script(src="js/wm_preloader.js")
+script(src="js/custom.js")

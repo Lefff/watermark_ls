@@ -1,36 +1,27 @@
-extends ../layouts/main
+doctype html
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"><![endif]-->
+html
+	head
+		include ../common/head
 
-block title
-	+siteTitle('Главная')
+		title Генератор водяных знаков
 
-block pageContent
-	.page__container
+	body
+		.preloader-starter Загрузка
+
 		.wrapper
-			.page__header
-				.col.page__header-left-col
-					.breadcrumbs
-						+nav( 'breadcrumbs', breadList, ( breadList.length - 1 ) , true )
+			include ../common/option-box
 
-				.col.col_reverse.page__header-right-col
-					.page__header-filters
-						+form-component( 'dropdown', dropDown, 1 )
-					.paginator.paginator_top-side
-						+nav( 'paginator', [1,2,3,4,5,'Все'], 0, true )
+			.main-box
+				.left-column
+					include ../common/canvas
+				.right-column
+					include ../common/canvas-actions
+				.preloader
 
-			.page__content.home-page
-				.col
-					.sidebar
-						nav.nav.nav_sidebar
-							+nav( 'nav', menuSidebar, 0, true )
+			include ../common/footer
 
-				.col.col_reverse
-					.page__main-content
-						+products( 6 )
-
-						.page__text-block
-							.text-block__heading.text-block__heading_big Пара слов о магазине
-							.text-block__p
-								p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. 
-								p Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-
-
+		include ../common/scripts

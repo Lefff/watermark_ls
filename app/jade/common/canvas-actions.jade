@@ -1,0 +1,55 @@
+.settings-head
+	.settings-heading Настройки
+	.settings-body
+		form.settings-form
+			.settings-block.setting-block_decorated
+				.fileupload-wrap
+					.settings-block__hint Исходное изображение
+					input(type="file" placeholder="изображение" name="loaded_img")
+				.fileupload-wrap
+					.settings-block__hint Водяной знак
+					input(type="file" placeholder="водяной знак" name="loaded_watermark")
+			.settings-block.setting-block_decorated
+				.settings-block__hint Положение
+				#tab-container.no-jump
+					ul.etabs
+						li.tab
+							a(href="#tabs1" class="tab-inner tab-inner_pos") Позиция
+						li.tab
+							a(href="#tabs2" class="tab-inner tab-inner_gut") Пробел
+					#tabs1.tabs-wrapper
+						.canvas-preview
+							span.gutter-preview-vertical
+							span.gutter-preview-horizontal
+						ul.parameters-list.right-float
+							li.parameter
+								.parametr-hint.parametr-hint_gutter-height
+								.parament-input-wrap
+									input(id="gutter-height" value="0")
+							li.parameter
+								.parametr-hint.parametr-hint_gutter-width
+								.parament-input-wrap
+									input(id="gutter-width" value="0")
+					#tabs2.tabs-wrapper
+						.canvas-preview
+							.top-center.watermark-position.active-watermark-position
+							each position in ['top-center','top-right','middle-left','middle-center','middle-right', 'bottom-left', 'bottom-center', 'bottom-right']
+								.watermark-position(id = position)
+						ul.parameters-list.right-float
+							li.parameter
+								.parametr-hint X
+								.parament-input-wrap
+									input(id="position-vertical" value="0")
+							li.parameter
+								.parametr-hint Y
+								.parament-input-wrap
+									input(id="position-horizontal" value="0")
+			.settings-block.setting-block_decorated
+				.settings-block__hint Прозрачность
+				div#slider
+			.settings-block.settings-block_buttons
+				.button-group
+					button(type="reset" class="grey-btn") Сброс
+					button(type="submit" class="pink-btn right-float") Скачать
+
+		.preloader__blocker
