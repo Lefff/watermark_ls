@@ -1,6 +1,7 @@
 node_modules
 bower
-css/*.css
+app/css
 app/*.html
 dist
 .DS_Store
+app/img/tmp_imgs
