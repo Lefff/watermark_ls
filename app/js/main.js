@@ -1,11 +1,16 @@
 ;(function( $ ) {
+
+	//DOM Ready
 	$(function() {
 
-		/**
-		 * Инициализируем наши модули
-		 */
-		//$('.push-top').length && as_toTop.init();
+		//Загрузка файла
 		wm_fileuploader.init();
 
 	});
+
+	//All Document Ready
+	$(window).load(function() {
+		wm_preloader.init();
+	});
+
 })( jQuery );

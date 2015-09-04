@@ -9,7 +9,8 @@ var wm_fileuploader;
 			//URL до нашего php файла обработчкиа
 			var url = 'php/upload.php';
 
-			$('.send_files').fileupload({
+			var init = function() {
+			$('.suka').fileupload({
 				url      : url,
 				dataType : 'json',
 				done: function (e, data) {
@@ -27,6 +28,7 @@ var wm_fileuploader;
 					);*/
 				}
 			});
+			};
 
 			return { init : init };
 		})();
