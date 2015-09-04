@@ -3,7 +3,7 @@
 
 ## Установка
 
-0. Убедитесь что у вас установлены [node.js](http://nodejs.org/), [npm](http://npmjs.org/) и [bower](http://bower.io.);
+0. Убедитесь что у вас установлены [node.js](http://nodejs.org/), [compass](http://compass-style.org/), [npm](http://npmjs.org/) и [bower](http://bower.io.);
 
 1. Клонируйте репозиторий;
 
@@ -33,5 +33,5 @@ $ git clone https://github.com/Lefff/watermark_ls.git
   $ gulp jade
 
   #Компиляция SASS
-  $ gulp sass
+  $ gulp compass
   ```

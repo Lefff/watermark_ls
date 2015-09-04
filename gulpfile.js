@@ -9,6 +9,7 @@ var $      = gulpLoadPlugins(),
 
 
 
+
 // Очистка директории с временными файлами
 gulp.task('clean', function( cb ) {
 	return gulp.src('./dist', { read: false })
@@ -86,7 +87,7 @@ gulp.task('build', function () {
 
 
 // Запуск сервера
-gulp.task('server', function () {  
+gulp.task('server', function () {
 	browserSync({
 		port: 9000,
 		server: {
