@@ -1,0 +1,466 @@
+::-moz-selection {
+	background-color: rgba($color-bg-pink, .5 );
+}
+::selection {
+	background-color: rgba($color-bg-pink, .5 );
+}
+
+// COMMON STYLES ============================================== *
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+	width: 100%;
+	font-family: $roboto-light;
+	font-size: 16px;
+	color: $color-text-dark;
+	background: url(../img/common/bg_texture.jpg) #a1747c no-repeat;
+	background-attachment: fixed;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+li {
+	list-style-type: none;
+	margin-left: none;
+}
+// ie8 background for body
+.no-backgroundsize body {
+	background: url(../img/common/ie8/bg-ie.jpg);
+}
+//--
+.right-float {
+	float: right;
+}
+// это убирает синюю обводку инпутов в браузерах
+input,
+textarea {
+	outline:none;
+}
+input:active,
+textarea:active {
+	outline:none !important;
+}
+a:active,
+a:focus {
+	outline: none !important;
+}
+button:active,
+button:focus {
+  outline: none !important;
+}
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+// прибьём футер к низу
+.wrapper{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 46px;
+	left: 0;
+	text-align: center;
+	vertical-align: middle;
+	min-height: 730px;
+	min-width: 1050px;
+	height: auto!important;
+	&:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		width: 0;
+		vertical-align: middle;
+	}
+}
+.footer-main{
+	height: 46px;
+}
+.copyright {
+	text-align: center;
+	font-size: 12px;
+	color: $white;
+	padding-top: 17px;
+}
+// LANGUAGE & SOCIAL LIKES ============================================== *
+// LANGUAGE SELECT =================== *
+.options-box {
+	position: fixed;
+	z-index: 6;
+	top: 5%;
+	left: 0;
+}
+.language-select {
+	text-align: left;
+	margin-bottom: 16px;
+}
+.language-select__option {
+	width: 43px;
+	background-color: $color-bg-alfa-bright;
+	margin-bottom: 1px;
+	text-transform: uppercase;
+}
+.language-option__inner {
+	display: block;
+	padding: 5px 0 5px 5px;
+	font-family: $segoe-light;
+	font-size: 18px;
+	text-decoration: none;
+	color: #83878e;
+	&:hover {
+		color: #444a53;
+	}
+}
+// SOCIAL LIKES =================== *
+.socials-box {
+	position: relative;
+	left: -43px;
+	cursor: pointer;
+	transition: 0.2s;
+	-moz-transition: 0.2s;
+	-o-transition: 0.2s;
+	-webkit-transition: 0.2s;
+	&:hover {
+		left: 0;
+	}
+}
+.socials-list {
+	position: relative;
+	&:after {
+		position: absolute;
+		top: 0;
+		right: -43px;
+		content: "";
+		display: inline-block;
+		width: 43px;
+		height: 41px;
+		background: url(../img/common/soc-icos.png) 2px -80px no-repeat;
+		background-color: $color-bg-alfa-bright;
+	}
+}
+.socials-item {
+	width: 43px;
+	height: 41px;
+	background-color: $color-bg-alfa-bright;
+}
+.social-item__fb {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-indent: -999px;
+	background: url(../img/common/soc-icos.png) -41px 5px no-repeat;
+	&:hover {
+		background-position: -41px -39px;
+	}
+}
+.social-item__tw {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-indent: -999px;
+	background: url(../img/common/soc-icos.png) -88px 4px no-repeat;
+	&:hover {
+		background-position: -88px -40px;
+	}
+}
+.social-item__vk {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-indent: -999px;
+	background: url(../img/common/soc-icos.png) 4px 4px no-repeat;
+	&:hover {
+		background-position: 4px -40px;
+	}
+}
+// styles for ie8
+.no-rgba .language-select__option,
+.no-rgba .socials-item {
+	background: url(../img/common/ie8/rgba-bright-ie.png);
+}
+.no-rgba .socials-list {
+	&:after {
+	   background: url(../img/common/ie8/like-trigger.png);
+	}
+}
+// GENERATOR ==================================================== *
+.main-box{
+	margin-top: 40px;
+	display: inline-block;
+	vertical-align: middle;
+	min-height: 670px;
+	width: 960px;
+	background: url(../img/common/box-bg.png) repeat-y;
+	text-align: left;
+	position: relative;
+}
+.left-column {
+	min-height: 620px;
+	width: 650px;
+	float: left;
+	padding: 15px 25px 25px 25px;
+}
+.right-column {
+	min-height: 670px;
+	width: 260px;
+	float: right;
+	background-color: #f1f1f5;
+}
+// LEFT PART ====================== *
+// heading
+.gen-head {
+	margin-bottom: 60px;
+}
+.gen-heading {
+	font-family: $segoe-light;
+	color: #fff;
+	font-size: 36px;
+}
+// body
+.img-box{
+	width: 650px;
+	height: 534px;
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	overflow: hidden;
+	background: url(../img/common/canvas_bg.jpg) #2b2729;
+}
+
+.wrapper__img-parent{
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+.wrapper__watermark{
+	position: absolute;
+	top:0;
+	left:0;
+}
+// ЗАГРУЖАЕМАЯ КАРТИНКА <========= !!!!!!
+.loaded-img {
+	width: 100%;
+}
+
+// RIGHT PART =================== *
+.settings-head {
+	padding-top: 24px;
+	margin-bottom: 24px;
+}
+.settings-heading {
+	text-align: center;
+	font-size: 26px;
+}
+.settings-body {
+	position: relative;
+}
+.settings-block {
+	padding: 16px 19px 11px 19px;
+	position: relative;
+}
+.setting-block_decorated {
+	border-bottom: 1px solid #f5a3a2;
+	&:after{
+		content: " ";
+		position: absolute;
+		bottom: -11px;
+		left: 50%;
+		margin-left: -9px;
+		width: 19px;
+		height: 11px;
+		background: url(../img/common/decor-triangle.jpg);
+	}
+}
+.settings-block_buttons {
+	padding: 16px 10px 11px 10px;
+}
+.settings-block__hint {
+	font-size: 14px;
+	margin-bottom: 7px;
+}
+.button-group {
+	padding-top: 40px;
+	margin-bottom: 14px;
+}
+.settings-block-btns {
+	padding: 56px 10px 0;
+	position: relative;
+}
+// FILE UPLOAD ==================================================== *
+.fileupload-wrap {
+	margin-bottom: 23px;
+}
+.NFI-wrapper {
+	width: 100%;
+	background-color: #f1f1f5;
+	border: 1px solid $color-bg-grey-dark;
+	border-radius: 3px;
+	height: 25px;
+	overflow: hidden;
+	position: relative;
+	text-align: left;
+	vertical-align: middle;
+}
+.NFI-button {
+	text-indent: -9999px;
+	width: 39px;
+	height: 26px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background: url(../img/common/upload-icon.png) 10px 5px no-repeat;
+	background-color: $color-bg-pink;
+	transition: 0.2s;
+	-moz-transition: 0.2s;
+	-o-transition: 0.2s;
+	-webkit-transition: 0.2s;
+	&:hover {
+		background-color: #e3736c; /* Old browsers */
+		background-color: -moz-linear-gradient(top,  #e3736c 0%, #f97e76 100%); /* FF3.6+ */
+		background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e3736c), color-stop(100%,#f97e76)); /* Chrome,Safari4+ */
+		background-color: -webkit-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* Chrome10+,Safari5.1+ */
+		background-color: -o-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* Opera 11.10+ */
+		background-color: -ms-linear-gradient(top,  #e3736c 0%,#f97e76 100%); /* IE10+ */
+		background-color: linear-gradient(to bottom,  #e3736c 0%,#f97e76 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3736c', endColorstr='#f97e76',GradientType=0 ); /* IE6-9 */
+	}
+}
+.NFI-filename {
+	height: 23px;
+	width: 100%;
+	margin-top: -1px;
+	margin-left: -1px;
+	font-family: $segoe-light;
+	font-size: 12px;
+	color: #9eb2c0;
+	line-height: 20px;
+	overflow: hidden;
+	padding-left: 4px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: $color-bg-light-grey;
+	border: 1px solid $color-bg-light-grey;
+}
+// POSITION PARAMETERS ==================================================== *
+.canvas-preview {
+	display: inline-block;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	border: 1px solid $color-bg-grey-dark;
+	border-radius: 3px;
+	background: url(../img/common/canvas_preview_bg.png) #dbe1e8;
+}
+.gutter-preview-vertical,
+.gutter-preview-horizontal{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	background-color: #f97e76;
+}
+.gutter-preview-vertical {
+	width: 2px;
+	height: 100%;
+}
+.gutter-preview-horizontal {
+	width: 100%;
+	height: 2px;
+}
+.watermark-position {
+	cursor: pointer;
+	display: inline-block;
+	margin-right: -4px;
+	margin-top: -2px;
+	height: 34px;
+	width: 33px;
+	background-color: #dbe1e8;
+	border-right: 1px solid #a6bac8;
+	border-bottom: 1px solid #a6bac8;
+	transition: 0.4s;
+	-moz-transition: 0.4s;
+	-o-transition: 0.4s;
+	-webkit-transition: 0.4s;
+	&:hover{
+		background-color: $color-bg-pink;
+	}
+}
+
+.active-watermark-position {
+	background-color: $color-bg-pink;
+}
+.parameter {
+	position: relative;
+	height: 45px;
+	width: 110px;
+	margin-bottom: 12px;
+}
+.parametr-hint {
+	display: inline-block;
+	padding: 15px 0 0 24px;
+	width: 42px;
+	height: 42px;
+}
+.parament-input-wrap {
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	right: 0;
+	width: 68px;
+	height: 45px;
+}
+.parametr-hint_gutter-height,
+.parametr-hint_gutter-width {
+	background: url(../img/common/size-hints.png) no-repeat;
+}
+.parametr-hint_gutter-height {
+	background-position: 6px 7px;
+}
+.parametr-hint_gutter-width {
+	background-position: 6px -50px;
+}
+.tabs-wrapper {
+	padding-top: 33px;
+	margin-bottom: 19px;
+}
+.no-jump {
+	position: relative;
+	height: 137px;
+	margin-bottom: 20px;
+}
+.etabs {
+	position: absolute;
+	top: -27px;
+	right: -8px;
+}
+.etabs:first-child {
+	margin-left: 0;
+}
+.tab {
+	cursor: pointer;
+	width: 19px;
+	height: 19px;
+	display: inline-block;
+	margin-left: 5px;
+}
+.tab-inner {
+	display: block;
+	height: 100%;
+	width: 100%;
+	text-indent: -9999px;
+	background: url(../img/common/tab-ico.png) no-repeat;
+}
+.tab-inner_pos{
+	background-position: 0px 0px;
+}
+.tab-inner_gut{
+	background-position: -29px 0px;
+}
+.active{
+	background-position-y: -22px;
+}

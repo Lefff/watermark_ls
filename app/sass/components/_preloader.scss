@@ -1,0 +1,69 @@
+%preload_default {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	.no-js & {
+		display: none;
+	}
+}
+
+.preloader {
+	@extend %preload_default;
+	display: none;
+
+	background-color: rgba( $color-bg-blue-dark, .7 );
+	z-index: 3;
+
+	&-starter {
+		@extend %preload_default;
+		position: fixed;
+
+		background: $color-text-dark;
+		z-index: 7;
+		overflow: hidden;
+		text-indent: -9999px;
+
+		visibility: visible;
+		opacity: 1;
+
+		transition: visibility .5s, opacity .5s;
+
+		&:before {
+			content: '';
+			display: block;
+			width: 128px;
+			height: 128px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -64px 0 0 -64px;
+			border: 2px solid #fff;
+			border-radius: 50%;
+			background: url(../img/common/wdrop.png) 50% 50% no-repeat;
+		}
+
+		.page-loaded & {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+
+	//Блокирует действия, если картинка не загружена
+	&__blocker {
+		position: absolute;
+		top: 75px;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: rgba( $color-bg-light-grey, .5 );
+
+		//Убираем "экран", если не подключен js, для загрузки обычным способом
+		.no-js & {
+			display: none;
+		}
+	}
+}
