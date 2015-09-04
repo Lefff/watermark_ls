@@ -1,0 +1,10 @@
+.options-box
+	ul.language-select
+		each lang in ['rus', 'eng']
+			li.language-select__option
+				a(href="#" class="language-option__inner" id= lang)= lang
+	.socials-box
+		ul.socials-list
+			each social in ['fb','tw','vk']
+				li.socials-item
+					a(href="#" class="social-item__" + social)= social
