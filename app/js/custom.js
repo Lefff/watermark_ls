@@ -45,20 +45,3 @@ $(function() {
 	$("input[type=file]").nicefileinput();
 });
 
-;(function( $) {
-
-	//DOM Ready
-	$(function() {
-		
-	});
-
-
-
-	//All Document Ready
-	$(window).load(function() {
-		wm_preloader.init();
-	});
-
-})( jQuery );
-
-
