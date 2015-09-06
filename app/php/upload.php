@@ -8,14 +8,29 @@
 	 *
 	 * Чтобы картинки не перезаписывались, добавляем постфикс, в виде IP адреса без точек.
 	 */
+	
+
+
+	function file_proper_link( $relative_file_url ) {
+		if( isset( $relative_file_url ) ) {
+			return sprintf(
+				"%s://%s%s%s",
+				isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+				$_SERVER['HTTP_HOST'],
+				$relative_file_url,
+				'?' . time()
+			);
+		}
+	}
 
 
 
 	//Папка для временных картинок
-	$upload_dir = '../img/tmp_imgs/';
+	$upload_dir = '/img/tmp_imgs/';
 	if( !file_exists( $upload_dir ) ) {
 		mkdir( $upload_dir, 0777, true );
 	}
+
 
 
 	//Ограничения для изображения
@@ -52,7 +67,7 @@
 	//Массив с ответом
 	$resp = array(
 		'errors'   => false,
-		'err_text' => 'Упс! Что-то пошло не так.',
+		'err_text' => '',
 		'file_url' => ''
 	);
 
@@ -77,11 +92,11 @@
 	} else if( !is_uploaded_file( $file_options['f_tmp'] ) ) {
 		$resp['errors']   = true;
 		$resp['err_text'] = 'Не стоит ломать сайт';
-	} else if( !move_uploaded_file( $file_options['f_tmp'], $file_options['f_url'] ) ) {
+	} else if( !move_uploaded_file( $file_options['f_tmp'], $_SERVER['DOCUMENT_ROOT'] . $uploaded_file_url ) ) {
 		$resp['errors']   = true;
 		$resp['err_text'] = 'Не удалось загрузить файл';
 	} else {
-		$resp['file_url'] = $file_options['f_url'];
+		$resp['file_url'] = file_proper_link( $file_options['f_url'] );
 	}
 
 	echo json_encode( $resp );

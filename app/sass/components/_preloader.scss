@@ -12,11 +12,53 @@
 
 .preloader {
 	@extend %preload_default;
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 
 	background-color: rgba( $color-bg-blue-dark, .7 );
 	z-index: 3;
 
+	&_progress {
+		transition: all .3s;
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	&__progress-line {
+		position: absolute;
+		top: 50%;
+		left: 10%;
+		right: 10%;
+		border: 2px solid rgba( $white, .8 );
+		height: 6px;
+
+		&-inner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0;
+			height: 100%;
+			background-color: rgba( $white, .8 );
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 100%;
+				left: 100%;
+				margin: 2px 0 0 -32px;
+				width: 64px;
+				height: 64px;
+				background: url(../img/common/wdrop.png) 0 0 no-repeat;
+				background-size: 100%;
+			}
+		}
+	}
+
+	//Прелоадер загрузки страницы
 	&-starter {
 		@extend %preload_default;
 		position: fixed;
@@ -60,6 +102,11 @@
 		left: 0;
 		width: 100%;
 		background-color: rgba( $color-bg-light-grey, .5 );
+
+		//Показывает элементы управления
+		.settings-body_base-loaded & {
+			display: none;
+		}
 
 		//Убираем "экран", если не подключен js, для загрузки обычным способом
 		.no-js & {

@@ -229,7 +229,13 @@ button::-moz-focus-inner {
 	background: url(../img/common/canvas_bg.jpg) #2b2729;
 }
 
-.wrapper__img-parent{
+.img-box img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.wrapper__img-parent {
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
