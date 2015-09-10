@@ -8,7 +8,7 @@
 	 *
 	 * Чтобы картинки не перезаписывались, добавляем постфикс, в виде IP адреса без точек.
 	 */
-	
+
 
 
 	function file_proper_link( $relative_file_url ) {
@@ -33,6 +33,8 @@
 
 
 
+
+
 	//Ограничения для изображения
 	$limit_file_size = 7 * 1024 * 1024;
 	$limit_mime      = array(
@@ -47,7 +49,7 @@
 	$uploaded_file       = array();
 	$uploaded_file_url   = '';
 	$uploaded_file_ext   = '';
-	$upload_file_postfix = str_replace('.', '', $_SERVER['REMOTE_ADDR']);
+	$upload_file_postfix = str_replace('.', '', time());
 	$uploaded_position   = 'base';
 
 	if( isset( $_FILES['base_image'] ) ) {

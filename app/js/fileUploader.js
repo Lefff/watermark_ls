@@ -69,6 +69,7 @@ var wm_fileuploader;
 						if( _currentFile.type === 'base_image' ) {
 							_optionBox.addClass('settings-body_base-loaded');
 						}
+
 					}
 			};
 

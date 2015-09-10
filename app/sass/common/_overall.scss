@@ -227,18 +227,34 @@ button::-moz-focus-inner {
 	text-align: center;
 	overflow: hidden;
 	background: url(../img/common/canvas_bg.jpg) #2b2729;
+	z-index:1;
+}
+.img-parent {
+	overflow:hidden;
+	z-index:1;
 }
 
+
 .img-box img {
-	display: block;
+	display: inline-block;
 	max-width: 100%;
 	height: auto;
+	vertical-align: middle;
 }
 
 .wrapper__img-parent {
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
+	overflow:hidden;
+	z-index:2;
+}
+.wrapper__img-parent::before {
+	content:'';
+ 	display:inline-block;
+ 	height:100%;
+ 	vertical-align:middle;
+ 	width:0;
 }
 .wrapper__watermark{
 	position: absolute;
@@ -378,6 +394,9 @@ button::-moz-focus-inner {
 	width: 100%;
 	height: 2px;
 }
+.watermark {
+	z-index: 2;
+}
 .watermark-position {
 	cursor: pointer;
 	display: inline-block;
@@ -469,4 +488,25 @@ button::-moz-focus-inner {
 }
 .active{
 	background-position-y: -22px;
+}
+#tabs1{
+	display: none;
+}
+
+.divForDrag{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.divForDragMultiply{
+    min-height: 350%;
+    min-width: 350%;
+    position: absolute;
+    left: -65%;
+    margin-left: -65%;
+    top: -55%;
+    margin-top: -55%;
 }
