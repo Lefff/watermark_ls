@@ -33,6 +33,7 @@ var wm_fileuploader;
 									.on( 'fileuploadalways', _progressHide );
 			};
 
+			//Узнать тип изображения(подложка или водный знак) и запуск прелоадера
 			var _beforeSendAction = function( e, data ) {
 				var
 					fType = $( this ).attr('name');
@@ -53,6 +54,7 @@ var wm_fileuploader;
 
 			};
 
+			//Скрыть прелоадер, после загрузки
 			var _progressHide = function() {
 				_preloader.removeClass('active');
 			};
@@ -72,6 +74,7 @@ var wm_fileuploader;
 					}
 			};
 
+			//Окно с отображением загрузки файла
 			var _moveProgress = function( e, data ) {
 				var progress = parseInt( data.loaded / data.total * 100, 10 );
 
