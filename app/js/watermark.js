@@ -308,14 +308,21 @@ var watermark = (function() {
      var cloneWm = function (event){
         event.preventDefault();
 
-        var columns =  Math.round(parent.width()/watermark.width()*2.4),
-            rows = Math.round(parent.height()/watermark.height()*2.4),
-            count = columns*rows,
-            watermarkWidth = watermark.width()*columns,
-            watermarkHeight = watermark.height()*rows;
-
-        watermark.css({'width': watermarkWidth, 'height': watermarkHeight});
-        divForDrag.addClass('divForDragMultiply');
+        var watermarkWidth = parent.width()*3,
+            watermarkHeight = parent.height()*3,
+            rows = Math.round(watermarkWidth/watermark.width()),
+            columns = Math.round(watermarkHeight/watermark.height()),
+            count = columns*rows;
+        watermark.css({
+            'width': watermarkWidth,
+            'height': watermarkHeight,
+            'left': parent.width(),
+            'top': parent.height()
+        });
+        divForDrag.addClass('divForDragMultiply').css({
+            'left': -parent.width(),
+            'top': -parent.height()
+        });
         for (var i = 1; i < count; i++){
             watermarkImg.clone().removeAttr('id').appendTo(watermark);
         }
@@ -328,7 +335,7 @@ var watermark = (function() {
             currentVal = parseInt(ui.value,10),
             widthSpan = gutterPreview+currentVal;
 
-        cloneWM.css('margin-left', currentVal);
+        cloneWM.css('margin-right', currentVal);
         spanVert.width(widthSpan);
      };
 
@@ -356,11 +363,11 @@ var watermark = (function() {
             maxMarginBottom = 500;
 
         if (currentValLeftint <= maxMarginLeft){
-            cloneWM.css('margin-left', currentValLeftint);
+            cloneWM.css('margin-right', currentValLeftint);
             spanVert.width(currentValLeftint+gutterPreview);
         }
         else {
-            cloneWM.css('margin-left', maxMarginLeft);
+            cloneWM.css('margin-right', maxMarginLeft);
             gutterWidth.val(maxMarginLeft);
             spanVert.width(maxMarginLeft+gutterPreview);
         }

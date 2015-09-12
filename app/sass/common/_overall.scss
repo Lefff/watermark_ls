@@ -211,6 +211,7 @@ button::-moz-focus-inner {
 // heading
 .gen-head {
 	margin-bottom: 60px;
+	margin-left: 0px;
 }
 .gen-heading {
 	font-family: $segoe-light;
@@ -260,6 +261,11 @@ button::-moz-focus-inner {
 	position: absolute;
 	top:0;
 	left:0;
+
+}
+.watermark{
+	display: block;
+	float:left;
 }
 // ЗАГРУЖАЕМАЯ КАРТИНКА <========= !!!!!!
 .loaded-img {
@@ -502,11 +508,7 @@ button::-moz-focus-inner {
 }
 
 .divForDragMultiply{
-    min-height: 350%;
-    min-width: 350%;
+    min-height: 400%;
+    min-width: 400%;
     position: absolute;
-    left: -65%;
-    margin-left: -65%;
-    top: -55%;
-    margin-top: -55%;
 }

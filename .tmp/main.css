@@ -294,6 +294,7 @@ button::-moz-focus-inner {
 
 .gen-head {
   margin-bottom: 60px;
+  margin-left: 0px;
 }
 
 .gen-heading {
@@ -346,6 +347,11 @@ button::-moz-focus-inner {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.watermark {
+  display: block;
+  float: left;
 }
 
 .loaded-img {
@@ -630,13 +636,13 @@ button::-moz-focus-inner {
 }
 
 .divForDragMultiply {
-  height: 250%;
-  width: 250%;
+  min-height: 400%;
+  min-width: 400%;
   position: absolute;
-  left: -37%;
-  margin-left: -37%;
-  top: -35%;
-  margin-top: -35%;
+  left: -50%;
+  margin-left: -50%;
+  top: -50%;
+  margin-top: -50%;
 }
 
 #slider {
