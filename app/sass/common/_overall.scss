@@ -261,6 +261,9 @@ button::-moz-focus-inner {
 	top:0;
 	left:0;
 }
+.wrapper__watermark_animated {
+	transition: left .3s, top .3s;
+}
 // ЗАГРУЖАЕМАЯ КАРТИНКА <========= !!!!!!
 .loaded-img {
 	width: 100%;
