@@ -8,7 +8,7 @@
 	 *
 	 * Чтобы картинки не перезаписывались, добавляем постфикс, в виде IP адреса без точек.
 	 */
-	
+
 
 
 	function file_proper_link( $relative_file_url ) {
@@ -27,9 +27,11 @@
 
 	//Папка для временных картинок
 	$upload_dir = '/img/tmp_imgs/';
-	if( !file_exists( $upload_dir ) ) {
-		mkdir( $upload_dir, 0777, true );
+	if( !file_exists( $_SERVER['DOCUMENT_ROOT'] . $upload_dir ) ) {
+		mkdir( $_SERVER['DOCUMENT_ROOT'] . $upload_dir, 0777, true );
 	}
+
+
 
 
 
@@ -47,7 +49,7 @@
 	$uploaded_file       = array();
 	$uploaded_file_url   = '';
 	$uploaded_file_ext   = '';
-	$upload_file_postfix = str_replace('.', '', $_SERVER['REMOTE_ADDR']);
+	$upload_file_postfix = str_replace('.', '', time());
 	$uploaded_position   = 'base';
 
 	if( isset( $_FILES['base_image'] ) ) {

@@ -6,6 +6,7 @@
 		//Загрузка файла
 		wm_fileuploader.init();
 
+
 	});
 
 	//All Document Ready

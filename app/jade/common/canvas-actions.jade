@@ -16,8 +16,8 @@
 						li.tab
 							a(href="#tabs1" class="tab-inner tab-inner_pos") Позиция
 						li.tab
-							a(href="#tabs2" class="tab-inner tab-inner_gut") Пробел
-					#tabs1.tabs-wrapper
+							a(href="#tabs2" class="tab-inner tab-inner_gut active") Пробел
+					#tabs1.tabs1.tabs-wrapper
 						.canvas-preview
 							span.gutter-preview-vertical
 							span.gutter-preview-horizontal
@@ -25,25 +25,25 @@
 							li.parameter
 								.parametr-hint.parametr-hint_gutter-height
 								.parament-input-wrap
-									input(id="gutter-height" value="0")
+									input(id="gutter-height" class="multiply input" value="0")
 							li.parameter
 								.parametr-hint.parametr-hint_gutter-width
 								.parament-input-wrap
-									input(id="gutter-width" value="0")
-					#tabs2.tabs-wrapper
+									input(id="gutter-width" class="multiply input" value="0")
+					#tabs2.tabs2.tabs-wrapper
 						.canvas-preview
-							.top-center.watermark-position.active-watermark-position
+							#top-left.watermark-position.active-watermark-position
 							each position in ['top-center','top-right','middle-left','middle-center','middle-right', 'bottom-left', 'bottom-center', 'bottom-right']
 								.watermark-position(id = position)
 						ul.parameters-list.right-float
 							li.parameter
 								.parametr-hint X
 								.parament-input-wrap
-									input(id="position-vertical" value="0")
+									input(id="position-horizontal" class="position input" value="0")
 							li.parameter
 								.parametr-hint Y
 								.parament-input-wrap
-									input(id="position-horizontal" value="0")
+									input(id="position-vertical" class="position input" value="0")
 			.settings-block.setting-block_decorated
 				.settings-block__hint Прозрачность
 				div#slider
