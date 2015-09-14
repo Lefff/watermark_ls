@@ -59,7 +59,7 @@ var wm_fileuploader;
 				_preloader.removeClass('active');
 			};
 
-			var _setImage = function (e, data) {
+			var _setImage = function(e, data) {
 				var
 					typeBlock = _currentFile.type === 'base_image' ? '.img-parent' : '.watermark';
 
@@ -77,9 +77,14 @@ var wm_fileuploader;
 							_optionBox.addClass('settings-body_base-loaded');
 						}
 							_progressHide();
+
+						watermark
+								.refreshURLs()
+								.resetPosition();
+
 						}, 1000);
 
-						watermark.resetPosition();
+						//watermark.resetPosition();
 					}
 			};
 

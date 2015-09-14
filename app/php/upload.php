@@ -4,24 +4,15 @@
 	 *
 	 * Загружаем картинки в папку и переименовывем их:
 	 * layer - подложка картинки;
-	 * watermark - изоброжание каоторое накладываем поверх;
+	 * watermark - изоброжание которое накладываем поверх;
 	 *
 	 * Чтобы картинки не перезаписывались, добавляем постфикс, в виде IP адреса без точек.
 	 */
 
 
 
-	function file_proper_link( $relative_file_url ) {
-		if( isset( $relative_file_url ) ) {
-			return sprintf(
-				"%s://%s%s%s",
-				isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-				$_SERVER['HTTP_HOST'],
-				$relative_file_url,
-				'?' . time()
-			);
-		}
-	}
+	//Подключаем зависимости
+	require_once 'helpers.php';
 
 
 
@@ -33,12 +24,11 @@
 
 
 
-
-
 	//Ограничения для изображения
 	$limit_file_size = 7 * 1024 * 1024;
 	$limit_mime      = array(
 		'image/gif',
+		'image/jpg',
 		'image/jpeg',
 		'image/png'
 	);
@@ -49,7 +39,7 @@
 	$uploaded_file       = array();
 	$uploaded_file_url   = '';
 	$uploaded_file_ext   = '';
-	$upload_file_postfix = str_replace('.', '', time());
+	$upload_file_postfix = !empty( $_SERVER['REMOTE_ADDR'] ) ? str_replace('.', '', $_SERVER['REMOTE_ADDR']) : time();
 	$uploaded_position   = 'base';
 
 	if( isset( $_FILES['base_image'] ) ) {
@@ -63,7 +53,7 @@
 	$uploaded_file['name'] = pathinfo( $uploaded_file['name'], PATHINFO_FILENAME );
 	$uploaded_file_url     = $upload_dir .
 							 $uploaded_position .
-							 $upload_file_postfix . '.' .
+							 USER_UNIQUE . '.' .
 							 $uploaded_file_ext;
 
 	//Массив с ответом
@@ -94,12 +84,21 @@
 	} else if( !is_uploaded_file( $file_options['f_tmp'] ) ) {
 		$resp['errors']   = true;
 		$resp['err_text'] = 'Не стоит ломать сайт';
-	} else if( !move_uploaded_file( $file_options['f_tmp'], $_SERVER['DOCUMENT_ROOT'] . $uploaded_file_url ) ) {
+	} else if( !move_uploaded_file( $file_options['f_tmp'], SITE_ROOT . $uploaded_file_url ) ) {
 		$resp['errors']   = true;
 		$resp['err_text'] = 'Не удалось загрузить файл';
 	} else {
+		$imageProportion = PHPImageWorkshop\ImageWorkshop::initFromPath( SITE_ROOT . $uploaded_file_url );
+
+		if( $imageProportion->getWidth() > 650 ) {
+			$imageProportion->resizeInPixel(650, null, true);
+			$imageProportion->save( SITE_ROOT . $upload_dir, basename( $uploaded_file_url ), true );
+		}
+
+
 		$resp['file_url'] = file_proper_link( $file_options['f_url'] );
 	}
 
+	header("Content-Type: application/json");
 	echo json_encode( $resp );
 ?>

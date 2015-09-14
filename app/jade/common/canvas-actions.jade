@@ -11,13 +11,13 @@
 					input(type="file" placeholder="Водяной знак" name="watermark_image" rel="fileupload")
 			.settings-block.setting-block_decorated
 				.settings-block__hint Положение
-				#tab-container.no-jump
+				.tab-container.no-jump
 					ul.etabs
 						li.tab
 							a(href="#tabs1" class="tab-inner tab-inner_pos") Позиция
 						li.tab
 							a(href="#tabs2" class="tab-inner tab-inner_gut active") Пробел
-					#tabs1.tabs1.tabs-wrapper
+					.tabs1.tabs-wrapper
 						.canvas-preview
 							span.gutter-preview-vertical
 							span.gutter-preview-horizontal
@@ -30,7 +30,7 @@
 								.parametr-hint.parametr-hint_gutter-width
 								.parament-input-wrap
 									input(id="gutter-width" class="multiply input" value="0")
-					#tabs2.tabs2.tabs-wrapper
+					.tabs2.tabs-wrapper
 						.canvas-preview
 							#top-left.watermark-position.active-watermark-position
 							each position in ['top-center','top-right','middle-left','middle-center','middle-right', 'bottom-left', 'bottom-center', 'bottom-right']
@@ -49,7 +49,7 @@
 				div#slider
 			.settings-block.settings-block_buttons
 				.button-group
-					button(type="reset" class="grey-btn") Сброс
+					button(type="reset" class="grey-btn reset-btn") Сброс
 					button(type="submit" class="pink-btn right-float") Скачать
 
 		.preloader__blocker

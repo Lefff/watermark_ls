@@ -249,6 +249,7 @@ button::-moz-focus-inner {
 	position: relative;
 	overflow:hidden;
 	z-index:2;
+	font-size: 0;
 }
 .wrapper__img-parent::before {
 	content:'';
@@ -498,7 +499,7 @@ button::-moz-focus-inner {
 .active{
 	background-position-y: -22px;
 }
-#tabs1{
+.tabs1{
 	display: none;
 }
 

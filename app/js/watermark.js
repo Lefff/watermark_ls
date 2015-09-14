@@ -8,14 +8,14 @@ var watermark = (function() {
 		currentPosXint     = parseInt(currentPosX, 10),
 		currentPosY        = watermark.css('top'),
 		currentPosYint     = parseInt(currentPosY, 10),
-		container          = $('#tab-container'),
-		tabContainerpos    = container.find('.tab-inner_pos'),
-		tabContainergut    = container.find('.tab-inner_gut'),
-		tabContainer       = container.find('.tab-inner'),
-		tabs1Container     = $('#tabs1'),
-		tabs2Container     = $('#tabs2'),
-		spanHor            = $('.gutter-preview-horizontal'),
-		spanVert           = $('.gutter-preview-vertical'),
+		settingsWrap       = $('.settings-form'),
+		tabContainerpos    = settingsWrap.find('.tab-inner_pos'),
+		tabContainergut    = settingsWrap.find('.tab-inner_gut'),
+		tabContainer       = settingsWrap.find('.tab-inner'),
+		tabs1Container     = settingsWrap.find('.tabs1'),
+		tabs2Container     = settingsWrap.find('.tabs2'),
+		spanHor            = settingsWrap.find('.gutter-preview-horizontal'),
+		spanVert           = settingsWrap.find('.gutter-preview-vertical'),
 		divForDrag         = $('.divForDrag'), //Дополнительный див для ограничения области клонированных WM
 		gutterPreview      = 2,
 		gutterWidth        = $('#gutter-width'),
@@ -27,8 +27,15 @@ var watermark = (function() {
 		input              = $('.input'),
 		position           = $('.position'),
 		multiply           = $('.multiply'),
-		resetGreyBtn       = $('.grey-btn'),
-		opacityBlock       = {};
+		resetBtn           = $('.reset-btn'),
+		opacityBlock       = {},
+		sendedObj          = {
+			left         : 0,
+			top          : 0,
+			layerURL     : '',
+			watermarkURL : '',
+			opacity      : 1
+		};
 
 	// Инициализирует наш модуль
 	var init = function () {
@@ -50,24 +57,26 @@ var watermark = (function() {
 		tabContainerpos.on('click', cloneWm);
 		gutterWidth.on('spin', changeMarginLeft);
 		gutterHeight.on('spin', changeMarginBottom);
-		resetGreyBtn.on('click', _reset);
+		resetBtn.on('click', _reset);
+
+		settingsWrap.on( 'submit', _sendToOverlay );
 	};
 
 	//Инициализирует плагин со слайдером
 	function initSlider(){
 		opacityBlock = $( '#slider' ).slider({
-			animate: true,
-			range: 'min',
-			value: 1,
-			min: 0,
-			max: 1,
-			step: 0.001,
-			slide: changeOpacity
+			animate : true,
+			range   : 'min',
+			value   : 1,
+			min     : 0,
+			max     : 1,
+			step    : 0.001,
+			slide   : changeOpacity
 		});
 	}
 
-	 //Инициализирует плагин со спинером
-	var initSpinner =function() {
+	//Инициализирует плагин со спинером
+	var initSpinner = function() {
 		gutterWidth.spinner({
 			max: 550,
 			min: 0
@@ -89,7 +98,9 @@ var watermark = (function() {
 	//Выводит прозрачность вотермарки
 	var changeOpacity = function(event, ui){
 		slideVal = (ui.value);
+
 		watermark.css( 'opacity', slideVal);
+		sendedObj.opacity = slideVal;
 	};
 
 	// Drag & drop
@@ -105,8 +116,10 @@ var watermark = (function() {
 					watermark.removeClass('wrapper__watermark_animated');
 
 					watermarkPosition.removeClass('active-watermark-position');
-					
+
 					_currentPos();
+
+					console.log( sendedObj );
 				},
 				stop: _currentPos,
 			})
@@ -121,14 +134,16 @@ var watermark = (function() {
 
 	//Выводит текущую позицию в инпутах
 	var _currentPos = function() {
-		var coordinate = watermark.position();
+		var
+			coordinate = watermark.position(),
+			offsetX    = Math.round( (coordinate.left) ),
+			offsetY    = Math.round( (coordinate.top) );
 
-		positionHorizontal.val(
-		Math.round((coordinate.left))
-		);
-		positionVertical.val(
-		Math.round((coordinate.top))
-		);
+		positionVertical.val( offsetY );
+		positionHorizontal.val( offsetX );
+
+		sendedObj.top  = offsetY;
+		sendedObj.left = offsetX;
 	};
 
 	// Запрещает вводить буквы в инпутах
@@ -422,9 +437,23 @@ var watermark = (function() {
 			'top'  : 0,
 			'left' : 0
 		});
+
+		return this;
 	};
 
-	// вызывает reset
+	//Обновляет ссылки на картинки
+	var refreshURLs = function() {
+		var
+			layerURL     = parentImg.attr('src'),
+			watermarkURL = watermarkImg.attr('src');
+
+		sendedObj.layerURL     = layerURL === '' ? '' : layerURL;
+		sendedObj.watermarkURL = watermarkURL === '' ? '' : watermarkURL;
+
+		return this;
+	};
+
+	//Вызывает reset
 	var _reset = function(){
 		_clean();
 		watermark.css( 'opacity', 1);
@@ -435,9 +464,52 @@ var watermark = (function() {
 		parentImg.removeAttr('src');
 	};
 
+	//Отправляет данные на "склейку"
+	var _sendToOverlay = function( e ) {
+		// var
+		// 	_bodyTag = $('body'),
+		// 	_dynEl   = _bodyTag.find('.emulated-click');
+
+		// if( !_dynEl.length ) {
+		// 	_dynEl = $("<a />").attr({
+		// 		'href'  : '#',
+		// 		'class' : 'emulated-click'
+		// 	})
+		// 	.appendTo( _bodyTag );
+		// }
+
+		e.preventDefault();
+
+		if( sendedObj.layerURL !== '' && sendedObj.watermarkURL !== '' ) {
+			$.ajax({
+				url      : './php/overlaying.php',
+				type     : 'POST',
+				dataType : 'json',
+				data     : sendedObj
+			})
+			.done(function( res ) {
+				if( res && res.errors === false ) {
+					window.open( res.file_url, "Result",
+   "width=650,height=auto,resizable=yes,scrollbars=yes,status=yes"
+ );
+					// _dynEl
+					// 	.attr( 'href', res.file_url )
+					// 	.click(function(e) {
+					// 		e.preventDefault();
+					// 		 window.location.href = res.file_url;
+					// 	});
+				}
+			})
+			.always(function() {
+				console.log('alwayes;');
+			});
+		}
+	};
+
 	return {
 		init          : init,
-		resetPosition : resetPosition
+		resetPosition : resetPosition,
+		refreshURLs   : refreshURLs
 	};
 })();
 
