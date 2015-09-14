@@ -40,17 +40,17 @@ var watermark = (function() {
 	};
 	// Прослушивает события
 	var _setUpListners = function (){
-	   watermarkPosition.on('click', moveWMbyFixPos);
-	   positionVertical.on('spin', moveWMbyStepY);
-	   positionHorizontal.on('spin', moveWMbyStepX);
-	   input.on('keydown', disableInputChar);
-	   position.on('change', changePosWm);
-	   multiply.on('change', changeMarginWm);
-	   tabContainer.on('click', toogleTabs);
-	   tabContainerpos.on('click', cloneWm);
-	   gutterWidth.on('spin', changeMarginLeft);
-	   gutterHeight.on('spin', changeMarginBottom);
-	   resetGreyBtn.on('click', _reset);
+		watermarkPosition.on('click', moveWMbyFixPos);
+		positionVertical.on('spin', moveWMbyStepY);
+		positionHorizontal.on('spin', moveWMbyStepX);
+		input.on('keydown', disableInputChar);
+		position.on('change', changePosWm);
+		multiply.on('change', changeMarginWm);
+		tabContainer.on('click', toogleTabs);
+		tabContainerpos.on('click', cloneWm);
+		gutterWidth.on('spin', changeMarginLeft);
+		gutterHeight.on('spin', changeMarginBottom);
+		resetGreyBtn.on('click', _reset);
 	};
 
 	//Инициализирует плагин со слайдером
@@ -224,7 +224,7 @@ var watermark = (function() {
 				flag = false;
 				break
 		}
-		if (flag) {
+		if( flag ) {
 			watermark
 					.addClass('wrapper__watermark_animated')
 					.position({
@@ -275,7 +275,7 @@ var watermark = (function() {
 		}
 	};
 
-	var  moveWMbyStepY = function (event, ui){
+	var moveWMbyStepY = function (event, ui){
 
 		var currentVal = parseInt(ui.value,10),
 			maxHeight = parseInt(parent.innerHeight()-watermark.innerHeight(),10),
@@ -322,47 +322,65 @@ var watermark = (function() {
 			_currentPos();
 		}
 	};
+
 	//Манипуляции с клонируемыми вотермарками:
 
 	// Клонирует WM по всему фону
-	 var cloneWm = function (event){
-		event.preventDefault();
+	var cloneWm = function( e ){
+		e.preventDefault();
 
-		var columns =  Math.ceil(parent.width()/watermark.width()*2.4),
-			rows = Math.ceil(parent.height()/watermark.height()*2.4),
-			count = columns*rows,
-			watermarkWidth = watermark.width()*columns,
-			watermarkHeight = watermark.height()*rows;
+		var
+			watermarkWidth = parent.width()*3,
+			watermarkHeight = parent.height()*3,
+			rows = Math.round(watermarkWidth/watermark.width()),
+			columns = Math.round(watermarkHeight/watermark.height()),
+			count = columns*rows;
 
-		watermark.css({'width': watermarkWidth, 'height': watermarkHeight});
-		divForDrag.addClass('divForDragMultiply');
+		watermark.css({
+			'width': watermarkWidth,
+			'height': watermarkHeight,
+			'left': parent.width(),
+			'top': parent.height()
+		});
+
+		divForDrag
+				.addClass('divForDragMultiply')
+				.css({
+					'left': -parent.width(),
+					'top': -parent.height()
+				});
+
 		for (var i = 1; i < count; i++){
 			watermarkImg.clone().removeAttr('id').appendTo(watermark);
 		}
-	 };
+	};
 
-	 //Меняет расстояние по ширине между WM
-	 var changeMarginLeft = function(event, ui){
+	//Меняет расстояние по ширине между WM
+	var changeMarginLeft = function( event, ui ){
 
-		var cloneWM = $('.watermark'),
-			currentVal = parseInt(ui.value,10),
-			widthSpan = gutterPreview+currentVal;
+		var
+			cloneWM    = $('.watermark'),
+			currentVal = parseInt( ui.value, 10 ),
+			widthSpan  = gutterPreview + currentVal;
 
-		cloneWM.css('margin-left', currentVal);
-		spanVert.width(widthSpan);
-	 };
+		cloneWM.css('margin-right', currentVal);
+
+		spanVert.width (widthSpan );
+	};
 
 	//Меняет расстояние по высоте между WM
-	 var changeMarginBottom = function(event, ui){
+	var changeMarginBottom = function(event, ui){
 
-		var cloneWM = $('.watermark'),
-			currentVal = parseInt(ui.value,10),
-			heightSpan = parseInt(spanHor.height(),10);
+		var
+			cloneWM    = $('.watermark'),
+			currentVal = parseInt( ui.value, 10 ),
+			heightSpan = parseInt( spanHor.height(), 10 );
 
 		heightSpan = gutterPreview+currentVal;
+
 		cloneWM.css('margin-bottom', currentVal);
 		spanHor.height(heightSpan);
-	 };
+	};
 
 	 //Меняет расстояние между картинками после изменения в инпутах
 	var changeMarginWm = function (){
@@ -376,11 +394,11 @@ var watermark = (function() {
 			maxMarginBottom = 500;
 
 		if (currentValLeftint <= maxMarginLeft){
-			cloneWM.css('margin-left', currentValLeftint);
+			cloneWM.css('margin-right', currentValLeftint);
 			spanVert.width(currentValLeftint+gutterPreview);
 		}
 		else {
-			cloneWM.css('margin-left', maxMarginLeft);
+			cloneWM.css('margin-right', maxMarginLeft);
 			gutterWidth.val(maxMarginLeft);
 			spanVert.width(maxMarginLeft+gutterPreview);
 		}
@@ -404,7 +422,7 @@ var watermark = (function() {
 	};
 
 	// вызывает reset
-	var _reset = function(ui){
+	var _reset = function(){
 		_clean();
 		watermark.css( 'opacity', 1);
 		console.log( opacityBlock );
