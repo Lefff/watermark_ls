@@ -95,7 +95,7 @@ var watermark = (function() {
 	// Drag & drop
 	var dragDrop = function() {
 
-		if (tabContainergut.hasClass('active')){
+		if( tabContainergut.hasClass('active') ){
 			watermark.draggable({
 				containment: parent,
 				snap: parent.selector,
@@ -160,17 +160,20 @@ var watermark = (function() {
 	}
 
 	//вызывает табы
-	var toogleTabs = function(event) {
-		event.preventDefault();
+	var toogleTabs = function( e ) {
+		e.preventDefault();
+
 		tabContainer.removeClass('active');
+
 		$(this).addClass('active');
-		if (tabContainerpos.hasClass('active')){
+
+		if( tabContainerpos.hasClass('active') ){
 			tabs1Container.css('display', 'block');
 			tabs2Container.css('display', 'none');
 			dragDrop();
 			_clean();
 		}
-		else{
+		else {
 			tabs2Container.css('display', 'block');
 			tabs1Container.css('display', 'none');
 			watermarkImg.nextAll().remove();
