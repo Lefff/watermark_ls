@@ -27,8 +27,8 @@
 
 	//Папка для временных картинок
 	$upload_dir = '/img/tmp_imgs/';
-	if( !file_exists( $upload_dir ) ) {
-		mkdir( $upload_dir, 0777, true );
+	if( !file_exists( $_SERVER['DOCUMENT_ROOT'] . $upload_dir ) ) {
+		mkdir( $_SERVER['DOCUMENT_ROOT'] . $upload_dir, 0777, true );
 	}
 
 

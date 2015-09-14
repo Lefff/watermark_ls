@@ -29,8 +29,8 @@ var wm_fileuploader;
 									.fileupload( _uploadOptions )
 									.on( 'fileuploadadd', _beforeSendAction )
 									.on( 'fileuploadprogressall', _moveProgress )
-									.on( 'fileuploaddone', _setImage )
-									.on( 'fileuploadalways', _progressHide );
+									.on( 'fileuploaddone', _setImage );
+									/*.on( 'fileuploadalways', _progressHide );*/
 			};
 
 			var _beforeSendAction = function( e, data ) {
@@ -62,14 +62,22 @@ var wm_fileuploader;
 					typeBlock = _currentFile.type === 'base_image' ? '.img-parent' : '.watermark';
 
 					if( data && data.result.errors === false ) {
+
+						setTimeout(function(){
 						_canvas
 								.find( typeBlock )
+								.load()
 								.attr('src', data.result.file_url );
+
+
 
 						if( _currentFile.type === 'base_image' ) {
 							_optionBox.addClass('settings-body_base-loaded');
 						}
+							_progressHide();
+						}, 1000);
 
+						watermark.resetPosition();
 					}
 			};
 
