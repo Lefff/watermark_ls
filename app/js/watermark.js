@@ -103,32 +103,6 @@ var watermark = (function() {
 		watermark.css( 'opacity', slideVal);
 		sendedObj.opacity = slideVal;
 	};
-
-	//Определяет размер картинок после загрузки
-
-	// ждем загрузки картинки браузером
-		parentImg.load(function(){
-			// удаляем атрибуты width и height
-			$(this).removeAttr("width")
-			.removeAttr("height")
-			.css({ width: "", height: "" });
-			// получаем заветные цифры
-			var widthParent  = $(this).width();
-			var heightParent = $(this).height();
-
-		});
-
-		watermarkImg.load(function(){
-			// удаляем атрибуты width и height
-			$(this).removeAttr("width")
-			.removeAttr("height")
-			.css({ width: "", height: "" });
-			// получаем заветные цифры
-			var widthWM  = $(this).width();
-			var heightWM = $(this).height();
-
-		});
-
 	// Drag & drop
 	var dragDrop = function() {
 
