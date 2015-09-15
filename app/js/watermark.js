@@ -180,30 +180,35 @@ var wm_actions;
 			}
 
 			//вызывает табы
-			var toogleTabs = function( e ) {
+			var toogleTabs = function( e, ui ) {
 				e.preventDefault();
 
 				tabContainer.removeClass('active');
 
 				$(this).addClass('active');
 
-				if( tabContainerpos.hasClass('active') ){
-					tabs1Container.css('display', 'block');
-					tabs2Container.css('display', 'none');
-					dragDrop();
-					_clean();
-				}
-				else {
-					tabs2Container.css('display', 'block');
-					tabs1Container.css('display', 'none');
-					watermarkImg.nextAll().remove();
-					divForDrag.removeClass('divForDragMultiply');
-					watermark.removeAttr('style');
-					watermarkImg.removeAttr('style');
-					dragDrop();
-					_clean();
-				}
-			};
+			if( tabContainerpos.hasClass('active') ){
+				tabs1Container.css('display', 'block');
+				tabs2Container.css('display', 'none');
+				dragDrop();
+				_clean();
+			}
+			else {
+				tabs2Container.css('display', 'block');
+				tabs1Container.css('display', 'none');
+				watermarkImg.nextAll().remove();
+				divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+				watermark.css({
+					'left': '',
+					'top' : '',
+					'width': '',
+					'height': '',
+				});
+			watermarkImg.removeAttr('style');
+			dragDrop();
+			_clean();
+			}
+		};
 
 			//Манипуляции с одной вотермаркой:
 
@@ -467,6 +472,8 @@ var wm_actions;
 				$( '.ui-slider-handle' ).css('left', '100%');
 				watermarkImg.removeAttr('src');
 				parentImg.removeAttr('src');
+				tabContainer.removeClass('active');
+				tabContainergut.addClass('active');
 			};
 
 			//Отправляет данные на "склейку"
