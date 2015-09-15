@@ -33,6 +33,11 @@
 			$layer->resizeInPixel(650, null, true);
 		}
 
+		//Проверка watermark
+		if( $watermark->getWidth() > $layer->getWidth() ) {
+			$watermark->resizeInPixel( $layer->getWidth(), null, true );
+		}
+
 		$watermark->opacity( ( $_POST['opacity'] * 100 ) );
 
 		$layer->addLayerOnTop($watermark, $_POST['left'], $_POST['top'], "LT");

@@ -64,7 +64,7 @@
 		position: fixed;
 
 		background: $color-text-dark;
-		z-index: 7;
+		z-index: 999;
 		overflow: hidden;
 		text-indent: -9999px;
 
@@ -102,6 +102,7 @@
 		left: 0;
 		width: 100%;
 		background-color: rgba( $color-bg-light-grey, .5 );
+		z-index: 3;
 
 		//Показывает элементы управления
 		.settings-body_base-loaded & {
