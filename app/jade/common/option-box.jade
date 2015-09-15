@@ -1,10 +1,13 @@
 .options-box
-	ul.language-select
-		each lang in ['rus', 'eng']
-			li.language-select__option
-				a(href="#" class="language-option__inner" id= lang)= lang
-	.socials-box
-		ul.socials-list
-			each social in ['fb','tw','vk']
-				li.socials-item
-					a(href="#" class="social-item__" + social)= social
+    ul.language-select
+        each lang in ['rus', 'eng']
+            li.language-select__option
+                a(href="#" class="language-option__inner" id= lang)= lang
+    .socials-box
+        ul.socials-list
+            li.socials-item
+                a(href="http://www.facebook.com/sharer.php" target="_blank" class="social-item__fb") fb
+            li.socials-item
+                a(href="http://twitter.com/share" target="_blank" class="social-item__tw") tw
+            li.socials-item
+                a(href="http://vk.com/share.php?url=http://mysite.com" target="_blank" class="social-item__vk") vk
