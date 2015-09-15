@@ -4,6 +4,7 @@ var watermark = (function() {
 		watermarkImg       = $('#watermark'),
 		parent             = $('#wrapper__img-parent'),
 		parentImg          = $('#img-parent'),
+		// widthParent = parentImg.width(),
 		currentPosX        = watermark.css('left'),
 		currentPosXint     = parseInt(currentPosX, 10),
 		currentPosY        = watermark.css('top'),
@@ -27,7 +28,7 @@ var watermark = (function() {
 		input              = $('.input'),
 		position           = $('.position'),
 		multiply           = $('.multiply'),
-		resetBtn           = $('.reset-btn'),
+		resetBtn           = $('.grey-btn'),
 		opacityBlock       = {},
 		sendedObj          = {
 			left         : 0,
@@ -44,6 +45,7 @@ var watermark = (function() {
 		initSlider();
 		_currentPos();
 		initSpinner();
+
 	};
 	// Прослушивает события
 	var _setUpListners = function (){
@@ -58,7 +60,6 @@ var watermark = (function() {
 		gutterWidth.on('spin', changeMarginLeft);
 		gutterHeight.on('spin', changeMarginBottom);
 		resetBtn.on('click', _reset);
-
 		settingsWrap.on( 'submit', _sendToOverlay );
 	};
 
@@ -78,11 +79,11 @@ var watermark = (function() {
 	//Инициализирует плагин со спинером
 	var initSpinner = function() {
 		gutterWidth.spinner({
-			max: 550,
+			max: 350,
 			min: 0
 		});
 		gutterHeight.spinner({
-			max: 500,
+			max: 350,
 			min: 0
 		});
 		positionVertical.spinner({
@@ -103,10 +104,35 @@ var watermark = (function() {
 		sendedObj.opacity = slideVal;
 	};
 
+	//Определяет размер картинок после загрузки
+
+	// ждем загрузки картинки браузером
+		parentImg.load(function(){
+			// удаляем атрибуты width и height
+			$(this).removeAttr("width")
+			.removeAttr("height")
+			.css({ width: "", height: "" });
+			// получаем заветные цифры
+			var widthParent  = $(this).width();
+			var heightParent = $(this).height();
+
+		});
+
+		watermarkImg.load(function(){
+			// удаляем атрибуты width и height
+			$(this).removeAttr("width")
+			.removeAttr("height")
+			.css({ width: "", height: "" });
+			// получаем заветные цифры
+			var widthWM  = $(this).width();
+			var heightWM = $(this).height();
+
+		});
+
 	// Drag & drop
 	var dragDrop = function() {
 
-		if( tabContainergut.hasClass('active') ){
+		if( tabContainergut.hasClass('active')){
 			watermark.draggable({
 				containment: parent,
 				snap: parent.selector,
@@ -119,7 +145,6 @@ var watermark = (function() {
 
 					_currentPos();
 
-					console.log( sendedObj );
 				},
 				stop: _currentPos,
 			})
@@ -175,7 +200,7 @@ var watermark = (function() {
 	}
 
 	//вызывает табы
-	var toogleTabs = function( e ) {
+	var toogleTabs = function( e, ui ) {
 		e.preventDefault();
 
 		tabContainer.removeClass('active');
@@ -192,8 +217,13 @@ var watermark = (function() {
 			tabs2Container.css('display', 'block');
 			tabs1Container.css('display', 'none');
 			watermarkImg.nextAll().remove();
-			divForDrag.removeClass('divForDragMultiply');
-			watermark.removeAttr('style');
+			divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+			watermark.css({
+				'left': '',
+				'top' : '',
+				'width': '',
+				'height': '',
+			});
 			watermarkImg.removeAttr('style');
 			dragDrop();
 			_clean();
@@ -408,8 +438,8 @@ var watermark = (function() {
 			currentValBottom = gutterHeight.val(),
 			currentValLeftint = parseInt(currentValLeft, 10),
 			currentValBottomint = parseInt(currentValBottom, 10),
-			maxMarginLeft = 550,
-			maxMarginBottom = 500;
+			maxMarginLeft = 350,
+			maxMarginBottom = 350;
 
 		if (currentValLeftint <= maxMarginLeft){
 			cloneWM.css('margin-right', currentValLeftint);
@@ -462,6 +492,8 @@ var watermark = (function() {
 		$( '.ui-slider-handle' ).css('left', '100%');
 		watermarkImg.removeAttr('src');
 		parentImg.removeAttr('src');
+		tabContainer.removeClass('active');
+		tabContainergut.addClass('active');
 	};
 
 	//Отправляет данные на "склейку"
