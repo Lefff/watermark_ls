@@ -22,7 +22,7 @@ var wm_fileuploader;
 				_currentFile = {};
 
 				_canvas.length && _events();
-			}
+			};
 
 			var _events = function() {
 				$('[rel=fileupload]')
@@ -78,7 +78,7 @@ var wm_fileuploader;
 						}
 							_progressHide();
 
-						watermark
+						wm_actions
 								.refreshURLs()
 								.resetPosition();
 

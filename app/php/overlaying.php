@@ -1,6 +1,6 @@
 <?php
 	/*
-	 * ### Наложение изображение ###
+	 * ### Наложение изображения ###
 	 *
 	 * Получаем расположение файлов и их типы.
 	 * layer - подложка;
@@ -31,6 +31,11 @@
 		//Двойная проверка не повредит
 		if( $layer->getWidth() > 650 ) {
 			$layer->resizeInPixel(650, null, true);
+		}
+
+		//Проверка watermark
+		if( $watermark->getWidth() > $layer->getWidth() ) {
+			$watermark->resizeInPixel( $layer->getWidth(), null, true );
 		}
 
 		$watermark->opacity( ( $_POST['opacity'] * 100 ) );
