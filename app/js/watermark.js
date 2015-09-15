@@ -1,400 +1,548 @@
 var watermark = (function() {
 
-    var watermark = $('#wrapper__watermark'),
-        watermarkImg = $('#watermark'),
-        parent = $('#wrapper__img-parent'),
-        parentImg = $('#img-parent'),
-        currentPosX = watermark.css('left'),
-        currentPosXint = parseInt(currentPosX, 10),
-        currentPosY = watermark.css('top'),
-        currentPosYint = parseInt(currentPosY, 10),
-        container = $('#tab-container'),
-        tabContainerpos = container.find('.tab-inner_pos'),
-        tabContainergut = container.find('.tab-inner_gut'),
-        tabContainer = container.find('.tab-inner'),
-        tabs1Container = $('#tabs1'),
-        tabs2Container = $('#tabs2'),
-        spanHor = $('.gutter-preview-horizontal'),
-        spanVert = $('.gutter-preview-vertical'),
-        divForDrag = $('.divForDrag'),//Дополнительный див для ограничения области клонированных WM
-        gutterPreview = 2,
-        gutterWidth = $('#gutter-width'),
-        gutterHeight = $('#gutter-height'),
-        positionVertical = $('#position-vertical'),
-        positionHorizontal = $('#position-horizontal'),
-        watermarkPosition = $('.watermark-position'),
-        canvasPreview = $('.canvas-preview'),
-        input = $('.input'),
-        position = $('.position'),
-        multiply = $('.multiply'),
-        resetGreyBtn = $('.grey-btn');
+	var watermark          = $('#wrapper__watermark'),
+		watermarkImg       = $('#watermark'),
+		parent             = $('#wrapper__img-parent'),
+		parentImg          = $('#img-parent'),
+		// widthParent = parentImg.width(),
+		currentPosX        = watermark.css('left'),
+		currentPosXint     = parseInt(currentPosX, 10),
+		currentPosY        = watermark.css('top'),
+		currentPosYint     = parseInt(currentPosY, 10),
+		settingsWrap       = $('.settings-form'),
+		tabContainerpos    = settingsWrap.find('.tab-inner_pos'),
+		tabContainergut    = settingsWrap.find('.tab-inner_gut'),
+		tabContainer       = settingsWrap.find('.tab-inner'),
+		tabs1Container     = settingsWrap.find('.tabs1'),
+		tabs2Container     = settingsWrap.find('.tabs2'),
+		spanHor            = settingsWrap.find('.gutter-preview-horizontal'),
+		spanVert           = settingsWrap.find('.gutter-preview-vertical'),
+		divForDrag         = $('.divForDrag'), //Дополнительный див для ограничения области клонированных WM
+		gutterPreview      = 2,
+		gutterWidth        = $('#gutter-width'),
+		gutterHeight       = $('#gutter-height'),
+		positionVertical   = $('#position-vertical'),
+		positionHorizontal = $('#position-horizontal'),
+		watermarkPosition  = $('.watermark-position'),
+		canvasPreview      = $('.canvas-preview'),
+		input              = $('.input'),
+		position           = $('.position'),
+		multiply           = $('.multiply'),
+		resetBtn           = $('.grey-btn'),
+		opacityBlock       = {},
+		sendedObj          = {
+			left         : 0,
+			top          : 0,
+			layerURL     : '',
+			watermarkURL : '',
+			opacity      : 1
+		};
 
-    // Инициализирует наш модуль
-    var init = function () {
-        _setUpListners();
-        dragDrop();
-        initSlider();
-        _currentPos();
-        initSpinner();
-    };
-    // Прослушивает события
-    var _setUpListners = function (){
-       watermarkPosition.on('click', moveWMbyFixPos);
-       positionVertical.on('spin', moveWMbyStepY);
-       positionHorizontal.on('spin', moveWMbyStepX);
-       input.on('keydown', disableInputChar);
-       position.on('change', changePosWm);
-       multiply.on('change', changeMarginWm);
-       tabContainer.on('click', toogleTabs);
-       tabContainerpos.on('click', cloneWm);
-       gutterWidth.on('spin', changeMarginLeft);
-       gutterHeight.on('spin', changeMarginBottom);
-       resetGreyBtn.on('click', _reset);
-    };
+	// Инициализирует наш модуль
+	var init = function () {
+		_setUpListners();
+		dragDrop();
+		initSlider();
+		_currentPos();
+		initSpinner();
 
-    //Инициализирует плагин со слайдером
-    function initSlider(){
-        var slider = $( '#slider' ).slider({
-            animate: true,
-            range: 'min',
-            value: 1,
-            min: 0,
-            max: 1,
-            step: 0.1,
-            slide: changeOpacity
-        });
-    }
+	};
+	// Прослушивает события
+	var _setUpListners = function (){
+		watermarkPosition.on('click', moveWMbyFixPos);
+		positionVertical.on('spin', moveWMbyStepY);
+		positionHorizontal.on('spin', moveWMbyStepX);
+		input.on('keydown', disableInputChar);
+		position.on('change', changePosWm);
+		multiply.on('change', changeMarginWm);
+		tabContainer.on('click', toogleTabs);
+		tabContainerpos.on('click', cloneWm);
+		gutterWidth.on('spin', changeMarginLeft);
+		gutterHeight.on('spin', changeMarginBottom);
+		resetBtn.on('click', _reset);
+		settingsWrap.on( 'submit', _sendToOverlay );
+	};
 
-     //Инициализирует плагин со спинером
-    var initSpinner =function() {
-        gutterWidth.spinner({
-            max: 550,
-            min: 0
-        });
-        gutterHeight.spinner({
-            max: 500,
-            min: 0
-        });
-        positionVertical.spinner({
-            max: 535,
-            min: 0
-        });
-        positionHorizontal.spinner({
-            max: 650,
-            min: 0
-        });
-    };
+	//Инициализирует плагин со слайдером
+	function initSlider(){
+		opacityBlock = $( '#slider' ).slider({
+			animate : true,
+			range   : 'min',
+			value   : 1,
+			min     : 0,
+			max     : 1,
+			step    : 0.001,
+			slide   : changeOpacity
+		});
+	}
 
-    //Выводит прозрачность вотермарки
-    var changeOpacity = function(event, ui){
-        slideVal = (ui.value);
-        watermark.css( 'opacity', slideVal);
-    };
+	//Инициализирует плагин со спинером
+	var initSpinner = function() {
+		gutterWidth.spinner({
+			max: 350,
+			min: 0
+		});
+		gutterHeight.spinner({
+			max: 350,
+			min: 0
+		});
+		positionVertical.spinner({
+			max: 535,
+			min: 0
+		});
+		positionHorizontal.spinner({
+			max: 650,
+			min: 0
+		});
+	};
 
-    // Drag & drop
-    var dragDrop = function() {
+	//Выводит прозрачность вотермарки
+	var changeOpacity = function(event, ui){
+		slideVal = (ui.value);
 
-        if (tabContainergut.hasClass('active')){
-            watermark.draggable({
-                containment: parent,
-                snap: parent.selector,
-                snapTolerance: 0,
-                cursor: 'move',
-                drag: function(event, ui) {
-                    watermarkPosition.removeClass('active-watermark-position');
-                    _currentPos();
-                },
-                stop: _currentPos,
-            })
-        }
-        else {
-            watermark.draggable({
-                containment: divForDrag,
-                cursor: 'move'
-            });
-        }
-    };
+		watermark.css( 'opacity', slideVal);
+		sendedObj.opacity = slideVal;
+	};
 
-    //Выводит текущую позицию в инпутах
-    var _currentPos = function() {
-        var coordinate = watermark.position();
+	//Определяет размер картинок после загрузки
 
-        positionHorizontal.val(
-        Math.round((coordinate.left))
-        );
-        positionVertical.val(
-        Math.round((coordinate.top))
-        );
-    };
+	// ждем загрузки картинки браузером
+		parentImg.load(function(){
+			// удаляем атрибуты width и height
+			$(this).removeAttr("width")
+			.removeAttr("height")
+			.css({ width: "", height: "" });
+			// получаем заветные цифры
+			var widthParent  = $(this).width();
+			var heightParent = $(this).height();
 
-    // Запрещает вводить буквы в инпутах
-    var disableInputChar = function(event) {
-        // Разрешаем: backspace, delete, tab и escape
-        if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
-             // Разрешаем: Ctrl+A
-            (event.keyCode == 65 && event.ctrlKey === true) ||
-             // Разрешаем: home, end, влево, вправо
-            (event.keyCode >= 35 && event.keyCode <= 39)) {
-                 // Ничего не делаем
-                 return;
-        }
-        else {
-            // Убеждаемся, что это цифра, и останавливаем событие keypress
-            if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
-                event.preventDefault();
-            }
-        }
-    };
+		});
 
-    //Сбрасывает все настройки
-     var _clean = function(ui){
-        input.val(0);
-        spanHor.height(gutterPreview);
-        spanVert.width(gutterPreview);
-        canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
-        $('#top-left').addClass('active-watermark-position');
-    }
+		watermarkImg.load(function(){
+			// удаляем атрибуты width и height
+			$(this).removeAttr("width")
+			.removeAttr("height")
+			.css({ width: "", height: "" });
+			// получаем заветные цифры
+			var widthWM  = $(this).width();
+			var heightWM = $(this).height();
 
-    //вызывает табы
-    var toogleTabs = function(event) {
-        event.preventDefault();
-        tabContainer.removeClass('active');
-        $(this).addClass('active');
-        if (tabContainerpos.hasClass('active')){
-            tabs1Container.css('display', 'block');
-            tabs2Container.css('display', 'none');
-            dragDrop();
-            _clean();
-        }
-        else{
-            tabs2Container.css('display', 'block');
-            tabs1Container.css('display', 'none');
-            watermarkImg.nextAll().remove();
-            divForDrag.removeClass('divForDragMultiply');
-            watermark.removeAttr('style');
-            watermarkImg.removeAttr('style');
-            dragDrop();
-            _clean();
-        }
-    };
+		});
 
-    //Манипуляции с одной вотермаркой:
+	// Drag & drop
+	var dragDrop = function() {
 
-    //Передвигает вотермарк по фиксированным позициям
-    var moveWMbyFixPos = function (ui){
+		if( tabContainergut.hasClass('active')){
+			watermark.draggable({
+				containment: parent,
+				snap: parent.selector,
+				snapTolerance: 0,
+				cursor: 'move',
+				drag: function(event, ui) {
+					watermark.removeClass('wrapper__watermark_animated');
 
-        var pos ='';
-            flag = true;
+					watermarkPosition.removeClass('active-watermark-position');
 
-        switch ($(this).attr('id')) {
-            case 'top-left':
-                pos = 'left top';
-                break
-            case 'top-center':
-                pos = 'center top';
-                break
-            case 'top-right':
-                pos = 'right top';
-                break
-            case 'middle-left':
-                pos = 'left center';
-                break
-            case 'middle-center':
-                pos = 'center center';
-                break
-            case 'middle-right':
-                pos = 'right center';
-                break
-            case 'bottom-left':
-                pos = 'left bottom';
-                break
-            case 'bottom-center':
-                pos = 'center bottom';
-                break
-            case 'bottom-right':
-                pos = 'right bottom';
-                break
-            default:
-                flag = false;
-                break
-        }
-        if (flag) {
-            watermark.position({
-                my: pos,
-                at: pos,
-                of: parent,
-                collision: 'none none',
-            });
-            canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
-            $(this).addClass('active-watermark-position');
-             _currentPos();
-        }
-    };
-    $(window).resize(function(){
-        moveWMbyFixPos();
-    });
+					_currentPos();
+
+				},
+				stop: _currentPos,
+			})
+		}
+		else {
+			watermark.draggable({
+				containment: divForDrag,
+				cursor: 'move'
+			});
+		}
+	};
+
+	//Выводит текущую позицию в инпутах
+	var _currentPos = function() {
+		var
+			coordinate = watermark.position(),
+			offsetX    = Math.round( (coordinate.left) ),
+			offsetY    = Math.round( (coordinate.top) );
+
+		positionVertical.val( offsetY );
+		positionHorizontal.val( offsetX );
+
+		sendedObj.top  = offsetY;
+		sendedObj.left = offsetX;
+	};
+
+	// Запрещает вводить буквы в инпутах
+	var disableInputChar = function(event) {
+		// Разрешаем: backspace, delete, tab и escape
+		if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
+			 // Разрешаем: Ctrl+A
+			(event.keyCode == 65 && event.ctrlKey === true) ||
+			 // Разрешаем: home, end, влево, вправо
+			(event.keyCode >= 35 && event.keyCode <= 39)) {
+				 // Ничего не делаем
+				 return;
+		}
+		else {
+			// Убеждаемся, что это цифра, и останавливаем событие keypress
+			if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+				event.preventDefault();
+			}
+		}
+	};
+
+	//Сбрасывает все настройки
+	 var _clean = function(ui){
+		input.val(0);
+		spanHor.height(gutterPreview);
+		spanVert.width(gutterPreview);
+		canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
+		$('#top-left').addClass('active-watermark-position');
+	}
+
+	//вызывает табы
+	var toogleTabs = function( e, ui ) {
+		e.preventDefault();
+
+		tabContainer.removeClass('active');
+
+		$(this).addClass('active');
+
+		if( tabContainerpos.hasClass('active') ){
+			tabs1Container.css('display', 'block');
+			tabs2Container.css('display', 'none');
+			dragDrop();
+			_clean();
+		}
+		else {
+			tabs2Container.css('display', 'block');
+			tabs1Container.css('display', 'none');
+			watermarkImg.nextAll().remove();
+			divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+			watermark.css({
+				'left': '',
+				'top' : '',
+				'width': '',
+				'height': '',
+			});
+			watermarkImg.removeAttr('style');
+			dragDrop();
+			_clean();
+		}
+	};
+
+	//Манипуляции с одной вотермаркой:
+
+	//Передвигает вотермарк по фиксированным позициям
+	var moveWMbyFixPos = function (ui){
+
+		var
+			$this = $( this ),
+			pos   = '';
+			flag  = true;
+
+		switch( $this.attr('id') ) {
+			case 'top-left':
+				pos = 'left top';
+				break
+			case 'top-center':
+				pos = 'center top';
+				break
+			case 'top-right':
+				pos = 'right top';
+				break
+			case 'middle-left':
+				pos = 'left center';
+				break
+			case 'middle-center':
+				pos = 'center center';
+				break
+			case 'middle-right':
+				pos = 'right center';
+				break
+			case 'bottom-left':
+				pos = 'left bottom';
+				break
+			case 'bottom-center':
+				pos = 'center bottom';
+				break
+			case 'bottom-right':
+				pos = 'right bottom';
+				break
+			default:
+				flag = false;
+				break
+		}
+		if( flag ) {
+			watermark
+					.addClass('wrapper__watermark_animated')
+					.position({
+						my: pos,
+						at: pos,
+						of: parent,
+						collision: 'none none',
+					})
+					.delay( 400 )
+					.queue(function() {
+						$( this ).dequeue();
+
+						_currentPos();
+					});
+
+			canvasPreview
+						.find('.active-watermark-position')
+						.removeClass('active-watermark-position');
+
+			$this.addClass('active-watermark-position');
+
+			//setTimeout(_currentPos, 400)
+			 //_currentPos();
+		}
+	};
+	$(window).resize(function(){
+		moveWMbyFixPos();
+	});
 
 
-    //Передвигает вотермарк с помощью спиннера
-    var  moveWMbyStepX = function (event, ui){
+	//Передвигает вотермарк с помощью спиннера
+	var  moveWMbyStepX = function (event, ui){
 
-        var currentVal = parseInt(ui.value,10),
-            maxWidth =  parseInt(parent.innerWidth(), 10)-parseInt(watermark.innerWidth(),10),
-            minWidth = 0;
+		var currentVal = parseInt(ui.value,10),
+			maxWidth =  parseInt(parent.innerWidth(), 10)-parseInt(watermark.innerWidth(),10),
+			minWidth = 0;
 
-        watermarkPosition.removeClass('active-watermark-position');
-        positionHorizontal.spinner({
-                max: maxWidth
-        });
-        if (currentVal <= maxWidth){
-            watermark.css('left', currentVal);
-             _currentPos();
-        }
-        else{
-             return;
-        }
-    };
+		watermarkPosition.removeClass('active-watermark-position');
+		positionHorizontal.spinner({
+				max: maxWidth
+		});
+		if (currentVal <= maxWidth){
+			watermark.css('left', currentVal);
+			 _currentPos();
+		}
+		else{
+			 return;
+		}
+	};
 
-    var  moveWMbyStepY = function (event, ui){
+	var moveWMbyStepY = function (event, ui){
 
-        var currentVal = parseInt(ui.value,10),
-            maxHeight = parseInt(parent.innerHeight()-watermark.innerHeight(),10),
-            minHeight = 0;
+		var currentVal = parseInt(ui.value,10),
+			maxHeight = parseInt(parent.innerHeight()-watermark.innerHeight(),10),
+			minHeight = 0;
 
-        watermarkPosition.removeClass('active-watermark-position');
-        positionVertical.spinner({
-                max: maxHeight,
-        });
-        if (currentVal <= maxHeight){
-            watermark.css('top', currentVal);
-             _currentPos();
-        }
-        else{
-             return;
-        }
-    };
+		watermarkPosition.removeClass('active-watermark-position');
+		positionVertical.spinner({
+				max: maxHeight,
+		});
+		if (currentVal <= maxHeight){
+			watermark.css('top', currentVal);
+			 _currentPos();
+		}
+		else{
+			 return;
+		}
+	};
 
 
-    // Меняет позицию вотермарки после изменения в импутах
-    var changePosWm = function (){
+	// Меняет позицию вотермарки после изменения в импутах
+	var changePosWm = function (){
 
-        var currentValX = positionHorizontal.val(),
-            currentValY = positionVertical.val(),
-            currentValXint = parseInt(currentValX, 10),
-            currentValYint = parseInt(currentValY, 10),
-            maxWidth = parent.innerWidth()-watermark.innerWidth(),
-            minWidth = 0,
-            maxHeight = parent.innerHeight()-watermark.innerHeight(),
-            minHeight = 0;
+		var currentValX = positionHorizontal.val(),
+			currentValY = positionVertical.val(),
+			currentValXint = parseInt(currentValX, 10),
+			currentValYint = parseInt(currentValY, 10),
+			maxWidth = parent.innerWidth()-watermark.innerWidth(),
+			minWidth = 0,
+			maxHeight = parent.innerHeight()-watermark.innerHeight(),
+			minHeight = 0;
 
-        if (currentValXint <= maxWidth){
-            watermark.css('left', currentValXint);
-        }
-        else {
-            watermark.css('left', maxWidth);
-            _currentPos();
-        }
-        if (currentValYint <= maxHeight){
-            watermark.css('top', currentValYint);
-        }
-        else {
-            watermark.css('top', maxHeight);
-            _currentPos();
-        }
-    };
-    //Манипуляции с клонируемыми вотермарками:
+		if (currentValXint <= maxWidth){
+			watermark.css('left', currentValXint);
+		}
+		else {
+			watermark.css('left', maxWidth);
+			_currentPos();
+		}
+		if (currentValYint <= maxHeight){
+			watermark.css('top', currentValYint);
+		}
+		else {
+			watermark.css('top', maxHeight);
+			_currentPos();
+		}
+	};
 
-    // Клонирует WM по всему фону
-     var cloneWm = function (event){
-        event.preventDefault();
+	//Манипуляции с клонируемыми вотермарками:
 
-        var watermarkWidth = parent.width()*3,
-            watermarkHeight = parent.height()*3,
-            rows = Math.round(watermarkWidth/watermark.width()),
-            columns = Math.round(watermarkHeight/watermark.height()),
-            count = columns*rows;
-        watermark.css({
-            'width': watermarkWidth,
-            'height': watermarkHeight,
-            'left': parent.width(),
-            'top': parent.height()
-        });
-        divForDrag.addClass('divForDragMultiply').css({
-            'left': -parent.width(),
-            'top': -parent.height()
-        });
-        for (var i = 1; i < count; i++){
-            watermarkImg.clone().removeAttr('id').appendTo(watermark);
-        }
-     };
+	// Клонирует WM по всему фону
+	var cloneWm = function( e ){
+		e.preventDefault();
 
-     //Меняет расстояние по ширине между WM
-     var changeMarginLeft = function(event, ui){
+		var
+			watermarkWidth = parent.width()*3,
+			watermarkHeight = parent.height()*3,
+			rows = Math.round(watermarkWidth/watermark.width()),
+			columns = Math.round(watermarkHeight/watermark.height()),
+			count = columns*rows;
 
-        var cloneWM = $('.watermark'),
-            currentVal = parseInt(ui.value,10),
-            widthSpan = gutterPreview+currentVal;
+		watermark.css({
+			'width': watermarkWidth,
+			'height': watermarkHeight,
+			'left': parent.width(),
+			'top': parent.height()
+		});
 
-        cloneWM.css('margin-right', currentVal);
-        spanVert.width(widthSpan);
-     };
+		divForDrag
+				.addClass('divForDragMultiply')
+				.css({
+					'left': -parent.width(),
+					'top': -parent.height()
+				});
 
-    //Меняет расстояние по высоте между WM
-     var changeMarginBottom = function(event, ui){
+		for (var i = 1; i < count; i++){
+			watermarkImg.clone().removeAttr('id').appendTo(watermark);
+		}
+	};
 
-        var cloneWM = $('.watermark'),
-            currentVal = parseInt(ui.value,10),
-            heightSpan = parseInt(spanHor.height(),10);
+	//Меняет расстояние по ширине между WM
+	var changeMarginLeft = function( event, ui ){
 
-        heightSpan = gutterPreview+currentVal;
-        cloneWM.css('margin-bottom', currentVal);
-        spanHor.height(heightSpan);
-     };
+		var
+			cloneWM    = $('.watermark'),
+			currentVal = parseInt( ui.value, 10 ),
+			widthSpan  = gutterPreview + currentVal;
 
-     //Меняет расстояние между картинками после изменения в инпутах
-    var changeMarginWm = function (){
+		cloneWM.css('margin-right', currentVal);
 
-        var cloneWM = $('.watermark'),
-            currentValLeft = gutterWidth.val(),
-            currentValBottom = gutterHeight.val(),
-            currentValLeftint = parseInt(currentValLeft, 10),
-            currentValBottomint = parseInt(currentValBottom, 10),
-            maxMarginLeft = 550,
-            maxMarginBottom = 500;
+		spanVert.width (widthSpan );
+	};
 
-        if (currentValLeftint <= maxMarginLeft){
-            cloneWM.css('margin-right', currentValLeftint);
-            spanVert.width(currentValLeftint+gutterPreview);
-        }
-        else {
-            cloneWM.css('margin-right', maxMarginLeft);
-            gutterWidth.val(maxMarginLeft);
-            spanVert.width(maxMarginLeft+gutterPreview);
-        }
-        if (currentValBottomint <= maxMarginBottom){
-            cloneWM.css('margin-bottom', currentValBottomint);
-            spanHor.height(currentValBottomint+gutterPreview);
-        }
-        else {
-            cloneWM.css('margin-bottom', maxMarginBottom);
-            gutterHeight.val(maxMarginBottom);
-            spanHor.height(maxMarginBottom+gutterPreview);
-        }
-    };
+	//Меняет расстояние по высоте между WM
+	var changeMarginBottom = function(event, ui){
 
-    // вызывает reset
-    var _reset = function(ui){
-        _clean();
-        watermark.css( 'opacity', 1);
-        $( '.ui-slider-range' ).css('width', '100%');
-        $( '.ui-slider-handle' ).css('left', '100%');
-        watermarkImg.removeAttr('src');
-        parentImg.removeAttr('src');
-    };
+		var
+			cloneWM    = $('.watermark'),
+			currentVal = parseInt( ui.value, 10 ),
+			heightSpan = parseInt( spanHor.height(), 10 );
 
-    return {
-        init: init
-    };
+		heightSpan = gutterPreview+currentVal;
+
+		cloneWM.css('margin-bottom', currentVal);
+		spanHor.height(heightSpan);
+	};
+
+	 //Меняет расстояние между картинками после изменения в инпутах
+	var changeMarginWm = function (){
+
+		var cloneWM = $('.watermark'),
+			currentValLeft = gutterWidth.val(),
+			currentValBottom = gutterHeight.val(),
+			currentValLeftint = parseInt(currentValLeft, 10),
+			currentValBottomint = parseInt(currentValBottom, 10),
+			maxMarginLeft = 350,
+			maxMarginBottom = 350;
+
+		if (currentValLeftint <= maxMarginLeft){
+			cloneWM.css('margin-right', currentValLeftint);
+			spanVert.width(currentValLeftint+gutterPreview);
+		}
+		else {
+			cloneWM.css('margin-right', maxMarginLeft);
+			gutterWidth.val(maxMarginLeft);
+			spanVert.width(maxMarginLeft+gutterPreview);
+		}
+		if (currentValBottomint <= maxMarginBottom){
+			cloneWM.css('margin-bottom', currentValBottomint);
+			spanHor.height(currentValBottomint+gutterPreview);
+		}
+		else {
+			cloneWM.css('margin-bottom', maxMarginBottom);
+			gutterHeight.val(maxMarginBottom);
+			spanHor.height(maxMarginBottom+gutterPreview);
+		}
+	};
+
+	//Обнуляет x и y, чтобы небыло проблем с размером картинки
+	var resetPosition = function() {
+		watermark.css({
+			'top'  : 0,
+			'left' : 0
+		});
+
+		return this;
+	};
+
+	//Обновляет ссылки на картинки
+	var refreshURLs = function() {
+		var
+			layerURL     = parentImg.attr('src'),
+			watermarkURL = watermarkImg.attr('src');
+
+		sendedObj.layerURL     = layerURL === '' ? '' : layerURL;
+		sendedObj.watermarkURL = watermarkURL === '' ? '' : watermarkURL;
+
+		return this;
+	};
+
+	//Вызывает reset
+	var _reset = function(){
+		_clean();
+		watermark.css( 'opacity', 1);
+		console.log( opacityBlock );
+		$( '.ui-slider-range' ).css('width', '100%');
+		$( '.ui-slider-handle' ).css('left', '100%');
+		watermarkImg.removeAttr('src');
+		parentImg.removeAttr('src');
+		tabContainer.removeClass('active');
+		tabContainergut.addClass('active');
+	};
+
+	//Отправляет данные на "склейку"
+	var _sendToOverlay = function( e ) {
+		// var
+		// 	_bodyTag = $('body'),
+		// 	_dynEl   = _bodyTag.find('.emulated-click');
+
+		// if( !_dynEl.length ) {
+		// 	_dynEl = $("<a />").attr({
+		// 		'href'  : '#',
+		// 		'class' : 'emulated-click'
+		// 	})
+		// 	.appendTo( _bodyTag );
+		// }
+
+		e.preventDefault();
+
+		if( sendedObj.layerURL !== '' && sendedObj.watermarkURL !== '' ) {
+			$.ajax({
+				url      : './php/overlaying.php',
+				type     : 'POST',
+				dataType : 'json',
+				data     : sendedObj
+			})
+			.done(function( res ) {
+				if( res && res.errors === false ) {
+					window.open( res.file_url, "Result",
+   "width=650,height=auto,resizable=yes,scrollbars=yes,status=yes"
+ );
+					// _dynEl
+					// 	.attr( 'href', res.file_url )
+					// 	.click(function(e) {
+					// 		e.preventDefault();
+					// 		 window.location.href = res.file_url;
+					// 	});
+				}
+			})
+			.always(function() {
+				console.log('alwayes;');
+			});
+		}
+	};
+
+	return {
+		init          : init,
+		resetPosition : resetPosition,
+		refreshURLs   : refreshURLs
+	};
 })();
 
 watermark.init();
