@@ -219,6 +219,10 @@ button::-moz-focus-inner {
 	font-size: 36px;
 }
 // body
+/* .gen-body {
+	height: 534px;
+	overflow: hidden;
+} */
 .img-box{
 	width: 650px;
 	height: 534px;
@@ -226,7 +230,6 @@ button::-moz-focus-inner {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
-	overflow: hidden;
 	background: url(../img/common/canvas_bg.jpg) #2b2729;
 	z-index:1;
 }
@@ -249,6 +252,7 @@ button::-moz-focus-inner {
 	position: relative;
 	overflow:hidden;
 	z-index:2;
+	font-size: 0;
 }
 .wrapper__img-parent::before {
 	content:'';
@@ -277,12 +281,12 @@ button::-moz-focus-inner {
 
 // RIGHT PART =================== *
 .settings-head {
-	padding-top: 24px;
-	margin-bottom: 24px;
+    padding-top: 22px;
 }
 .settings-heading {
-	text-align: center;
-	font-size: 26px;
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
 }
 .settings-body {
 	position: relative;
@@ -498,7 +502,7 @@ button::-moz-focus-inner {
 .active{
 	background-position-y: -22px;
 }
-#tabs1{
+.tabs1{
 	display: none;
 }
 
