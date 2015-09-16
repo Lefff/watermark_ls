@@ -383,11 +383,11 @@ var watermark = (function() {
 		var
 			cloneWM    = $('.watermark'),
 			currentVal = parseInt( ui.value, 10 ),
-			widthSpan  = gutterPreview + currentVal;
+			widthSpan  = gutterPreview + ( currentVal / 350 ) * 100;
 
 		cloneWM.css('margin-right', currentVal);
 
-		spanVert.width (widthSpan );
+		spanVert.width( widthSpan + '%' );
 	};
 
 	//Меняет расстояние по высоте между WM
@@ -398,13 +398,13 @@ var watermark = (function() {
 			currentVal = parseInt( ui.value, 10 ),
 			heightSpan = parseInt( spanHor.height(), 10 );
 
-		heightSpan = gutterPreview+currentVal;
+		heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
 
 		cloneWM.css('margin-bottom', currentVal);
-		spanHor.height(heightSpan);
+		spanHor.height( heightSpan + '%' );
 	};
 
-	 //Меняет расстояние между картинками после изменения в инпутах
+	//Меняет расстояние между картинками после изменения в инпутах
 	var changeMarginWm = function (){
 
 		var cloneWM = $('.watermark'),
