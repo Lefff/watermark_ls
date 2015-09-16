@@ -39,7 +39,10 @@ var wm_actions;
 					top          : 0,
 					layerURL     : '',
 					watermarkURL : '',
-					opacity      : 1
+					opacity      : 1,
+					actionType   : 'single',
+					offsetX      : 0,
+					offsetY      : 0
 				};
 
 			// Инициализирует наш модуль
@@ -192,6 +195,8 @@ var wm_actions;
 
 					dragDrop();
 					_clean();
+
+					sendedObj.actionType = 'multi';
 				} else {
 					tabs2Container.css('display', 'block');
 					tabs1Container.css('display', 'none');
@@ -210,6 +215,8 @@ var wm_actions;
 					watermarkImg.removeAttr('style');
 					dragDrop();
 					_clean();
+
+					sendedObj.actionType = 'single';
 				}
 			};
 
@@ -363,10 +370,10 @@ var wm_actions;
 				e.preventDefault();
 
 				var
-					watermarkWidth = parent.width()*3,
+					watermarkWidth  = parent.width()*3,
 					watermarkHeight = parent.height()*3,
-					rows = Math.round(watermarkWidth/watermark.width()),
-					columns = Math.round(watermarkHeight/watermark.height()),
+					rows            = Math.round(watermarkWidth/watermark.width()),
+					columns         = Math.round(watermarkHeight/watermark.height()),
 					count = columns*rows;
 
 				watermark.css({
@@ -398,7 +405,11 @@ var wm_actions;
 
 				cloneWM.css('margin-right', currentVal);
 
+				sendedObj.offsetX = currentVal;
+
 				spanVert.width( widthSpan + '%' );
+
+				console.log( sendedObj );
 			};
 
 			//Меняет расстояние по высоте между WM
@@ -409,10 +420,12 @@ var wm_actions;
 					currentVal = parseInt( ui.value, 10 ),
 					heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
 
-				heightSpan = gutterPreview+currentVal;
-
 				cloneWM.css('margin-bottom', currentVal);
+				sendedObj.offsetY = currentVal;
+
 				spanHor.height( heightSpan + '%' );
+
+				console.log( sendedObj );
 			};
 
 			 //Меняет расстояние между картинками после изменения в инпутах
