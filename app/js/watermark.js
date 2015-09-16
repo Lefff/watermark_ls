@@ -53,6 +53,7 @@ var wm_actions;
 				initSlider();
 				_currentPos();
 				initSpinner();
+				loadImageClean();
 			};
 			// Прослушивает события
 			var _setUpListners = function (){
@@ -462,6 +463,51 @@ var wm_actions;
 					spanHor.height(maxMarginBottom+gutterPreview);
 				}
 			};
+
+			//Сбрасывает настройки после перезагрузки картинки
+			var loadImageClean = function(){
+				parentImg.load(function(){
+					cleanAll();
+				});
+
+				watermarkImg.load(function(){
+					cleanAll();
+				});
+			};
+
+			//Сбрасывает все параметры картинок
+			var cleanAll = function() {
+				_clean();
+				if( tabContainerpos.hasClass('active') ) {
+					tabs2Container.css('display', 'block');
+					tabs1Container.css('display', 'none');
+
+					watermarkImg.nextAll().remove();
+
+					divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+
+					watermark.css({
+						'left': '',
+						'top' : '',
+						'width': '',
+						'height': '',
+					});
+					watermarkImg.removeAttr('style');
+					dragDrop();
+					_clean();
+
+					sendedObj.actionType = 'single';
+					sendedObj.top        = 0;
+					sendedObj.left       = 0;
+				}
+				tabContainer.removeClass('active');
+				tabContainergut.addClass('active');
+				watermark.removeClass('wrapper__watermark_animated');
+				sendedObj.offsetX = 0;
+				sendedObj.offsetY = 0;
+			};
+
+
 
 			/*
 			* 1. Обнуляет x и y, чтобы небыло проблем с размером картинки
