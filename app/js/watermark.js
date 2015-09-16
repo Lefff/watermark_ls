@@ -39,7 +39,10 @@ var wm_actions;
 					top          : 0,
 					layerURL     : '',
 					watermarkURL : '',
-					opacity      : 1
+					opacity      : 1,
+					actionType   : 'single',
+					offsetX      : 0,
+					offsetY      : 0
 				};
 
 			// Инициализирует наш модуль
@@ -147,6 +150,8 @@ var wm_actions;
 
 				sendedObj.top  = offsetY;
 				sendedObj.left = offsetX;
+
+				console.log( sendedObj );
 			};
 
 			// Запрещает вводить буквы в инпутах
@@ -171,10 +176,13 @@ var wm_actions;
 			//Сбрасывает все настройки
 			var _clean = function(ui){
 				input.val(0);
-				spanHor.height(gutterPreview);
-				spanVert.width(gutterPreview);
+				spanHor.height( gutterPreview );
+				spanVert.width( gutterPreview );
 				canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
 				$('#top-left').addClass('active-watermark-position');
+
+				sendedObj.top  = 0;
+				sendedObj.left = 0;
 			}
 
 			//Переключение табов
@@ -192,6 +200,8 @@ var wm_actions;
 
 					dragDrop();
 					_clean();
+
+					sendedObj.actionType = 'multi';
 				} else {
 					tabs2Container.css('display', 'block');
 					tabs1Container.css('display', 'none');
@@ -210,7 +220,11 @@ var wm_actions;
 					watermarkImg.removeAttr('style');
 					dragDrop();
 					_clean();
+
+					sendedObj.actionType = 'single';
 				}
+
+				console.log( sendedObj );
 			};
 
 			//Манипуляции с одной вотермаркой:
@@ -408,8 +422,6 @@ var wm_actions;
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
 					heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
-
-				heightSpan = gutterPreview+currentVal;
 
 				cloneWM.css('margin-bottom', currentVal);
 				spanHor.height( heightSpan + '%' );
