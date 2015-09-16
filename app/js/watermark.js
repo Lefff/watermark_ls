@@ -446,12 +446,19 @@ var wm_actions;
 				}
 			};
 
-			//Обнуляет x и y, чтобы небыло проблем с размером картинки
+			/*
+			* 1. Обнуляет x и y, чтобы небыло проблем с размером картинки
+			* 2. Убираем анимацию watermark
+			* 3. Очищаем значния спиннеров
+			*/
 			var resetPosition = function() {
 				watermark.css({
 					'top'  : 0,
 					'left' : 0
 				});
+
+				watermark.removeClass('wrapper__watermark_animated');
+				_clean();
 
 				return this;
 			};
