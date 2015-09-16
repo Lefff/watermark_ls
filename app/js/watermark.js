@@ -330,10 +330,10 @@ var wm_actions;
 				});
 				if (currentVal <= maxHeight){
 					watermark.css('top', currentVal);
-					 _currentPos();
+					_currentPos();
 				}
 				else{
-					 return;
+					return;
 				}
 			};
 
