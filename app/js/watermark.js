@@ -158,12 +158,12 @@ var wm_actions;
 			var disableInputChar = function(event) {
 				// Разрешаем: backspace, delete, tab и escape
 				if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
-					 // Разрешаем: Ctrl+A
+				// Разрешаем: Ctrl+A
 					(event.keyCode == 65 && event.ctrlKey === true) ||
-					 // Разрешаем: home, end, влево, вправо
+				// Разрешаем: home, end, влево, вправо
 					(event.keyCode >= 35 && event.keyCode <= 39)) {
-						 // Ничего не делаем
-						 return;
+				// Ничего не делаем
+					return;
 				}
 				else {
 					// Убеждаемся, что это цифра, и останавливаем событие keypress
