@@ -28,8 +28,8 @@
 		<div class="wrapper">
 			<div class="options-box">
 				<ul class="language-select">
-					<li class="language-select__option"><a href="?lang=ru" id="rus" class="language-option__inner">rus</a></li>
-					<li class="language-select__option"><a href="?lang=en" id="eng" class="language-option__inner">eng</a></li>
+					<li class="language-select__option"><a href="?lang=ru" id="ru" class="language-option__inner">rus</a></li>
+					<li class="language-select__option"><a href="?lang=en" id="en" class="language-option__inner">eng</a></li>
 				</ul>
 				<div class="socials-box">
 					<ul class="socials-list">
@@ -152,10 +152,10 @@
 		<script src="bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.fileupload.js"></script>
-		<script src="js/jquery.easytabs.min.js"></script>
 		<script src="js/jquery.nicefileinput.min.js"></script>
 		<script src="js/custom.js"></script>
 		<script src="js/wm_preloader.js"></script>
+		<script src="js/wm_lang_switcher.js"></script>
 		<script src="js/fileUploader.js"></script>
 		<script src="js/watermark.js"></script>
 		<script src="js/main.js"></script>

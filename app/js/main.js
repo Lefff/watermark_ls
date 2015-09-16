@@ -6,12 +6,20 @@
 		//Загрузка файла
 		wm_fileuploader.init();
 
+		//Основные манипуляции (перемещение, прозрачность, скачивание результата и т.д.)
+		wm_actions.init();
+
+		//Переключалка языка
+		wm_langsw.init('.language-option__inner');
 
 	});
 
 	//All Document Ready
 	$(window).load(function() {
+
+		//Прелоадер
 		wm_preloader.init();
+
 	});
 
 })( jQuery );
