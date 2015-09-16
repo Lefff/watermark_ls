@@ -123,8 +123,6 @@ var wm_actions;
 							watermarkPosition.removeClass('active-watermark-position');
 
 							_currentPos();
-
-							console.log( sendedObj );
 						},
 						stop: _currentPos,
 					})
@@ -171,7 +169,7 @@ var wm_actions;
 			};
 
 			//Сбрасывает все настройки
-			 var _clean = function(ui){
+			var _clean = function(ui){
 				input.val(0);
 				spanHor.height(gutterPreview);
 				spanVert.width(gutterPreview);
@@ -179,26 +177,36 @@ var wm_actions;
 				$('#top-left').addClass('active-watermark-position');
 			}
 
-			//вызывает табы
-			var toogleTabs = function( e ) {
+			//Переключение табов
+			var toogleTabs = function( e, ui ) {
 				e.preventDefault();
 
 				tabContainer.removeClass('active');
+				watermark.removeClass('wrapper__watermark_animated');
 
-				$(this).addClass('active');
+				$( this ).addClass('active');
 
-				if( tabContainerpos.hasClass('active') ){
+				if( tabContainerpos.hasClass('active') ) {
 					tabs1Container.css('display', 'block');
 					tabs2Container.css('display', 'none');
+
 					dragDrop();
 					_clean();
-				}
-				else {
+				} else {
 					tabs2Container.css('display', 'block');
 					tabs1Container.css('display', 'none');
+
 					watermarkImg.nextAll().remove();
-					divForDrag.removeClass('divForDragMultiply');
-					watermark.removeAttr('style');
+
+					divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+
+					watermark.css({
+						'left': '',
+						'top' : '',
+						'width': '',
+						'height': '',
+					});
+
 					watermarkImg.removeAttr('style');
 					dragDrop();
 					_clean();
@@ -298,11 +306,12 @@ var wm_actions;
 				}
 			};
 
-			var moveWMbyStepY = function (event, ui){
+			var moveWMbyStepY = function( event, ui ){
 
-				var currentVal = parseInt(ui.value,10),
-					maxHeight = parseInt(parent.innerHeight()-watermark.innerHeight(),10),
-					minHeight = 0;
+				var
+					currentVal = parseInt(ui.value,10),
+					maxHeight  = parseInt(parent.innerHeight()-watermark.innerHeight(),10),
+					minHeight  = 0;
 
 				watermarkPosition.removeClass('active-watermark-position');
 				positionVertical.spinner({
@@ -319,9 +328,10 @@ var wm_actions;
 
 
 			// Меняет позицию вотермарки после изменения в импутах
-			var changePosWm = function (){
+			var changePosWm = function() {
 
-				var currentValX = positionHorizontal.val(),
+				var
+					currentValX = positionHorizontal.val(),
 					currentValY = positionVertical.val(),
 					currentValXint = parseInt(currentValX, 10),
 					currentValYint = parseInt(currentValY, 10),
@@ -384,11 +394,11 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					widthSpan  = gutterPreview + currentVal;
+					widthSpan  = gutterPreview + ( currentVal / 350 ) * 100;
 
 				cloneWM.css('margin-right', currentVal);
 
-				spanVert.width (widthSpan );
+				spanVert.width( widthSpan + '%' );
 			};
 
 			//Меняет расстояние по высоте между WM
@@ -397,12 +407,12 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					heightSpan = parseInt( spanHor.height(), 10 );
+					heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
 
 				heightSpan = gutterPreview+currentVal;
 
 				cloneWM.css('margin-bottom', currentVal);
-				spanHor.height(heightSpan);
+				spanHor.height( heightSpan + '%' );
 			};
 
 			 //Меняет расстояние между картинками после изменения в инпутах
@@ -436,12 +446,19 @@ var wm_actions;
 				}
 			};
 
-			//Обнуляет x и y, чтобы небыло проблем с размером картинки
+			/*
+			* 1. Обнуляет x и y, чтобы небыло проблем с размером картинки
+			* 2. Убираем анимацию watermark
+			* 3. Очищаем значния спиннеров
+			*/
 			var resetPosition = function() {
 				watermark.css({
 					'top'  : 0,
 					'left' : 0
 				});
+
+				watermark.removeClass('wrapper__watermark_animated');
+				_clean();
 
 				return this;
 			};
@@ -462,26 +479,16 @@ var wm_actions;
 			var _reset = function(){
 				_clean();
 				watermark.css( 'opacity', 1);
-				console.log( opacityBlock );
 				$( '.ui-slider-range' ).css('width', '100%');
 				$( '.ui-slider-handle' ).css('left', '100%');
 				watermarkImg.removeAttr('src');
 				parentImg.removeAttr('src');
+				tabContainer.removeClass('active');
+				tabContainergut.addClass('active');
 			};
 
 			//Отправляет данные на "склейку"
 			var _sendToOverlay = function( e ) {
-				// var
-				// 	_bodyTag = $('body'),
-				// 	_dynEl   = _bodyTag.find('.emulated-click');
-
-				// if( !_dynEl.length ) {
-				// 	_dynEl = $("<a />").attr({
-				// 		'href'  : '#',
-				// 		'class' : 'emulated-click'
-				// 	})
-				// 	.appendTo( _bodyTag );
-				// }
 
 				e.preventDefault();
 
