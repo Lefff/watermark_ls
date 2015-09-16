@@ -26,8 +26,8 @@
 		$wm_link    = substr( $_POST['watermarkURL'], 0, strpos( $_POST['watermarkURL'], '?') );
 		$wm_opacity = isset( $_POST['opacity'] ) && $_POST['opacity'] >= 0 ? $_POST['opacity'] : 100;
 		$wm_type    = isset( $_POST['actionType'] ) && !empty( $_POST['actionType'] ) ? $_POST['actionType'] : 'single';
-		$wm_pos_top = isset( $_POST['top'] ) && $_POST['top'] >= 0 ? $_POST['top'] : 0;
-		$wm_pos_lft = isset( $_POST['left'] ) && $_POST['left'] >= 0 ? $_POST['left'] : 0;
+		$wm_pos_top = isset( $_POST['top'] ) ? $_POST['top'] : 0;
+		$wm_pos_lft = isset( $_POST['left'] ) ? $_POST['left'] : 0;
 		$wm_offset  = array(
 			'X' => isset( $_POST['offsetX'] ) && $_POST['offsetX'] >= 0 ? $_POST['offsetX'] : 0,
 			'Y' => isset( $_POST['offsetY'] ) && $_POST['offsetY'] >= 0 ? $_POST['offsetY'] : 0

@@ -219,6 +219,10 @@ button::-moz-focus-inner {
 	font-size: 36px;
 }
 // body
+/* .gen-body {
+	height: 534px;
+	overflow: hidden;
+} */
 .img-box{
 	width: 650px;
 	height: 534px;
@@ -226,7 +230,6 @@ button::-moz-focus-inner {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
-	overflow: hidden;
 	background: url(../img/common/canvas_bg.jpg) #2b2729;
 	z-index:1;
 }

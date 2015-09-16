@@ -33,6 +33,7 @@ var wm_actions;
 				position           = $('.position'),
 				multiply           = $('.multiply'),
 				resetBtn           = $('.reset-btn'),
+				preloader          = wm_preloader.getPP(),
 				opacityBlock       = {},
 				sendedObj          = {
 					left         : 0,
@@ -176,6 +177,7 @@ var wm_actions;
 				input.val(0);
 				spanHor.height(gutterPreview);
 				spanVert.width(gutterPreview);
+
 				canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
 				$('#top-left').addClass('active-watermark-position');
 			}
@@ -217,7 +219,12 @@ var wm_actions;
 					_clean();
 
 					sendedObj.actionType = 'single';
+					sendedObj.top        = 0;
+					sendedObj.left       = 0;
 				}
+
+				sendedObj.offsetX = 0;
+				sendedObj.offsetY = 0;
 			};
 
 			//Манипуляции с одной вотермаркой:
@@ -283,9 +290,6 @@ var wm_actions;
 								.removeClass('active-watermark-position');
 
 					$this.addClass('active-watermark-position');
-
-					//setTimeout(_currentPos, 400)
-					 //_currentPos();
 				}
 			};
 			$(window).resize(function(){
@@ -390,6 +394,10 @@ var wm_actions;
 							'top': -parent.height()
 						});
 
+				//Устанавливаем новые значения
+				sendedObj.top  = parent.height();
+				sendedObj.left = parent.width();
+
 				for (var i = 1; i < count; i++){
 					watermarkImg.clone().removeAttr('id').appendTo(watermark);
 				}
@@ -408,8 +416,6 @@ var wm_actions;
 				sendedObj.offsetX = currentVal;
 
 				spanVert.width( widthSpan + '%' );
-
-				console.log( sendedObj );
 			};
 
 			//Меняет расстояние по высоте между WM
@@ -424,11 +430,9 @@ var wm_actions;
 				sendedObj.offsetY = currentVal;
 
 				spanHor.height( heightSpan + '%' );
-
-				console.log( sendedObj );
 			};
 
-			 //Меняет расстояние между картинками после изменения в инпутах
+			//Меняет расстояние между картинками после изменения в инпутах
 			var changeMarginWm = function (){
 
 				var cloneWM = $('.watermark'),
@@ -473,6 +477,11 @@ var wm_actions;
 				watermark.removeClass('wrapper__watermark_animated');
 				_clean();
 
+				sendedObj.top = 0;
+				sendedObj.left = 0;
+				sendedObj.offsetX = 0;
+				sendedObj.offsetY = 0;
+
 				return this;
 			};
 
@@ -498,6 +507,8 @@ var wm_actions;
 				parentImg.removeAttr('src');
 				tabContainer.removeClass('active');
 				tabContainergut.addClass('active');
+
+				wm_fileuploader.setBlocker();
 			};
 
 			//Отправляет данные на "склейку"
@@ -507,10 +518,18 @@ var wm_actions;
 
 				if( sendedObj.layerURL !== '' && sendedObj.watermarkURL !== '' ) {
 					$.ajax({
-						url      : './php/overlaying.php',
-						type     : 'POST',
-						dataType : 'json',
-						data     : sendedObj
+						url        : './php/overlaying.php',
+						type       : 'POST',
+						dataType   : 'json',
+						data       : sendedObj,
+						beforeSend : function() {
+							preloader
+									.addClass('active')
+									.delay( 300 )
+									.queue(function() {
+										$( this ).dequeue();
+									});
+						}
 					})
 					.done(function( res ) {
 						if( res && res.errors === false ) {
@@ -520,7 +539,7 @@ var wm_actions;
 						}
 					})
 					.always(function() {
-						console.log('alwayes;');
+						preloader.removeClass('active');
 					});
 				}
 			};
