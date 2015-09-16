@@ -33,9 +33,9 @@
 				</ul>
 				<div class="socials-box">
 					<ul class="socials-list">
-						<li class="socials-item"><a href="#" class="social-item__fb">fb</a></li>
-						<li class="socials-item"><a href="#" class="social-item__tw">tw</a></li>
-						<li class="socials-item"><a href="#" class="social-item__vk">vk</a></li>
+						<li class="socials-item"><a href="http://www.facebook.com/sharer.php?" class="social-item__fb" rel="share-link">fb</a></li>
+						<li class="socials-item"><a href="http://twitter.com/share?text=<?php echo $lang['title']; ?>" class="social-item__tw" rel="share-link">tw</a></li>
+						<li class="socials-item"><a href="http://vkontakte.ru/share.php?title=<?php echo $lang['title']; ?>&description=<?php echo $lang['title']; ?>" class="social-item__vk" rel="share-link">vk</a></li>
 					</ul>
 				</div>
 			</div>
@@ -156,6 +156,7 @@
 		<script src="js/custom.js"></script>
 		<script src="js/wm_preloader.js"></script>
 		<script src="js/wm_lang_switcher.js"></script>
+		<script src="js/wm_sharer.js"></script>
 		<script src="js/fileUploader.js"></script>
 		<script src="js/watermark.js"></script>
 		<script src="js/main.js"></script>

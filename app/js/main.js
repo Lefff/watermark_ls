@@ -12,6 +12,9 @@
 		//Переключалка языка
 		wm_langsw.init('.language-option__inner');
 
+		//Социал шаринг
+		wm_sharer.init();
+
 	});
 
 	//All Document Ready
