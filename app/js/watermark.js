@@ -123,8 +123,6 @@ var wm_actions;
 							watermarkPosition.removeClass('active-watermark-position');
 
 							_currentPos();
-
-							console.log( sendedObj );
 						},
 						stop: _currentPos,
 					})
@@ -171,7 +169,7 @@ var wm_actions;
 			};
 
 			//Сбрасывает все настройки
-			 var _clean = function(ui){
+			var _clean = function(ui){
 				input.val(0);
 				spanHor.height(gutterPreview);
 				spanVert.width(gutterPreview);
@@ -179,36 +177,41 @@ var wm_actions;
 				$('#top-left').addClass('active-watermark-position');
 			}
 
-			//вызывает табы
+			//Переключение табов
 			var toogleTabs = function( e, ui ) {
 				e.preventDefault();
 
 				tabContainer.removeClass('active');
+				watermark.removeClass('wrapper__watermark_animated');
 
-				$(this).addClass('active');
+				$( this ).addClass('active');
 
-			if( tabContainerpos.hasClass('active') ){
-				tabs1Container.css('display', 'block');
-				tabs2Container.css('display', 'none');
-				dragDrop();
-				_clean();
-			}
-			else {
-				tabs2Container.css('display', 'block');
-				tabs1Container.css('display', 'none');
-				watermarkImg.nextAll().remove();
-				divForDrag.removeClass('divForDragMultiply').removeAttr('style');
-				watermark.css({
-					'left': '',
-					'top' : '',
-					'width': '',
-					'height': '',
-				});
-			watermarkImg.removeAttr('style');
-			dragDrop();
-			_clean();
-			}
-		};
+				if( tabContainerpos.hasClass('active') ) {
+					tabs1Container.css('display', 'block');
+					tabs2Container.css('display', 'none');
+
+					dragDrop();
+					_clean();
+				} else {
+					tabs2Container.css('display', 'block');
+					tabs1Container.css('display', 'none');
+
+					watermarkImg.nextAll().remove();
+
+					divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+
+					watermark.css({
+						'left': '',
+						'top' : '',
+						'width': '',
+						'height': '',
+					});
+
+					watermarkImg.removeAttr('style');
+					dragDrop();
+					_clean();
+				}
+			};
 
 			//Манипуляции с одной вотермаркой:
 
@@ -391,11 +394,11 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					widthSpan  = gutterPreview + currentVal;
+					widthSpan  = gutterPreview + ( currentVal / 350 ) * 100;
 
 				cloneWM.css('margin-right', currentVal);
 
-				spanVert.width (widthSpan );
+				spanVert.width( widthSpan + '%' );
 			};
 
 			//Меняет расстояние по высоте между WM
@@ -404,12 +407,12 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					heightSpan = parseInt( spanHor.height(), 10 );
+					heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
 
 				heightSpan = gutterPreview+currentVal;
 
 				cloneWM.css('margin-bottom', currentVal);
-				spanHor.height(heightSpan);
+				spanHor.height( heightSpan + '%' );
 			};
 
 			 //Меняет расстояние между картинками после изменения в инпутах
@@ -469,7 +472,6 @@ var wm_actions;
 			var _reset = function(){
 				_clean();
 				watermark.css( 'opacity', 1);
-				console.log( opacityBlock );
 				$( '.ui-slider-range' ).css('width', '100%');
 				$( '.ui-slider-handle' ).css('left', '100%');
 				watermarkImg.removeAttr('src');
