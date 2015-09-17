@@ -530,6 +530,7 @@ var wm_actions;
 				sendedObj.offsetY = 0;
 
 				return this;
+
 			};
 
 			//Обновляет ссылки на картинки
