@@ -34,6 +34,7 @@ var wm_fileuploader;
 									.on( 'fileuploaddone', _setImage )
 									.on( 'fileuploadfail', _setError );
 									/*.on( 'fileuploadalways', _progressHide );*/
+
 			};
 
 			//Узнать тип изображения(подложка или водный знак) и запуск прелоадера
@@ -64,7 +65,9 @@ var wm_fileuploader;
 
 			var _setImage = function(e, data) {
 				var
+					$this     = $( this ),
 					typeBlock = _currentFile.type === 'base_image' ? '.img-parent' : '.watermark';
+
 
 					if( data && data.result.errors === false ) {
 
@@ -81,12 +84,17 @@ var wm_fileuploader;
 						} else {
 							_optionBox.addClass('settings-body_watermark-loaded');
 						}
-						
+
 						_progressHide();
 
 						wm_actions
 								.resetPosition()
 								.refreshURLs();
+
+						$this
+							.closest('.label')
+							.find('.inputtext')
+							.text( data.files[0].name );
 
 						//_setNewHeight();
 
@@ -106,7 +114,7 @@ var wm_fileuploader;
 					initHeight  = 534,
 					layerHeight = 0,
 					layerImage  = _imgWrapper.find('.img-parent');
-											
+
 					layerImage.load(function() {
 						layerHeight =  $( this ).height();
 

@@ -71,11 +71,19 @@
 								<div class="settings-block setting-block_decorated">
 									<div class="fileupload-wrap">
 										<div class="settings-block__hint"><?php echo $lang['source_img']; ?></div>
-										<input type="file" placeholder="<?php echo $lang['source_img']; ?>" name="base_image" rel="fileupload">
+										<label for="fileuploadParent" class="label">
+											<span id="inputParent" class="inputtext"></span>
+											<span class="icon"></span>
+											<input type="file" id="fileuploadParent" placeholder="<?php echo $lang['source_img']; ?>" name="base_image" rel="fileupload" class="fileuploadParent fileupload">
+										</label>
 									</div>
 									<div class="fileupload-wrap">
 										<div class="settings-block__hint"><?php echo $lang['watermark_img']; ?></div>
-										<input type="file" placeholder="<?php echo $lang['watermark_img']; ?>" name="watermark_image" rel="fileupload">
+										<label for="fileuploadWM" class="label">
+											<span id="inputWM" class="inputtext"></span>
+											<span class="icon"></span>
+											<input type="file" id="fileuploadWM" placeholder="<?php echo $lang['watermark_img']; ?>" name="watermark_image" rel="fileupload" class="fileuploadWM fileupload">
+										</label>
 									</div>
 								</div>
 								<div class="settings-block setting-block_decorated">
@@ -161,7 +169,6 @@
 		<script src="bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.fileupload.js"></script>
-		<script src="js/jquery.nicefileinput.min.js"></script>
 		<script src="js/custom.js"></script>
 		<script src="js/wm_preloader.js"></script>
 		<script src="js/wm_lang_switcher.js"></script>
