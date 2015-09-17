@@ -77,8 +77,8 @@ gulp.task('build', function () {
 
 	return gulp.src('app/*.html')
 			   .pipe(assets)
-			   .pipe($.if('*.js', $.uglify()))
-			   .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
+		//	   .pipe($.if('*.js', $.uglify()))
+		//	   .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
 			   .pipe(assets.restore())
 			   .pipe($.useref())
 			   .pipe(gulp.dest('dist'));
@@ -100,6 +100,9 @@ gulp.task('server', function () {
 
 //Копирование файлов (иконки, robots.txt и т.д.)
 gulp.task('copy', function() {
+	gulp.src('./app/php/**/*')
+		.pipe( gulp.dest('./dist/php') );
+
 	return gulp.src('./app/*.*')
 				.pipe(gulp.dest('./dist'));
 });
