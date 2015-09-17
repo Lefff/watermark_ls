@@ -65,7 +65,9 @@ var wm_fileuploader;
 
 			var _setImage = function(e, data) {
 				var
+					$this     = $( this ),
 					typeBlock = _currentFile.type === 'base_image' ? '.img-parent' : '.watermark';
+
 
 					if( data && data.result.errors === false ) {
 
@@ -88,6 +90,11 @@ var wm_fileuploader;
 						wm_actions
 								.resetPosition()
 								.refreshURLs();
+
+						$this
+							.closest('.label')
+							.find('.inputtext')
+							.text( data.files[0].name );
 
 						//_setNewHeight();
 

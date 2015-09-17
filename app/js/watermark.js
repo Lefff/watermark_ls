@@ -410,7 +410,7 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					widthSpan  = gutterPreview + ( currentVal / 350 ) * 100;
+					widthSpan  = gutterPreview + ( currentVal / 550 ) * 100;
 
 				cloneWM.css('margin-right', currentVal);
 
@@ -425,7 +425,7 @@ var wm_actions;
 				var
 					cloneWM    = $('.watermark'),
 					currentVal = parseInt( ui.value, 10 ),
-					heightSpan = gutterPreview + ( currentVal / 350 ) * 100;
+					heightSpan = gutterPreview + ( currentVal / 500 ) * 100;
 
 				cloneWM.css('margin-bottom', currentVal);
 				sendedObj.offsetY = currentVal;
@@ -543,35 +543,43 @@ var wm_actions;
 
 				return this;
 			};
+
 			//Меняет название файлов в инпутах
+			// UPDATE: Перенесено в fileUploader.js
 
-			$("#fileuploadParent").change(function() {
-				var fileName=$("#fileuploadParent").val(),
-				i = fileName.lastIndexOf('\\')+1,
-				name = fileName.substring(i, fileName.length);
-				$('#inputParent').text(name);
-			});
+			// $("#fileuploadParent").change(function() {
+			// 	var fileName=$("#fileuploadParent").val(),
+			// 	i = fileName.lastIndexOf('\\')+1,
+			// 	name = fileName.substring(i, fileName.length);
+			// 	$('#inputParent').text(name);
+			// });
 
-			$("#fileuploadWM").change(function() {
-				var fileName=$("#fileuploadWM").val(),
-				i = fileName.lastIndexOf('\\')+1,
-				name = fileName.substring(i, fileName.length);
-				$('#inputWM').text(name);
-			});
+			// $("#fileuploadWM").change(function() {
+			// 	var fileName=$("#fileuploadWM").val(),
+			// 	i = fileName.lastIndexOf('\\')+1,
+			// 	name = fileName.substring(i, fileName.length);
+			// 	$('#inputWM').text(name);
+			// });
 
 
 			//Вызывает reset
 			var _reset = function(){
 				cleanAll();
+
 				watermark.css( 'opacity', 1);
+				sendedObj.opacity = 1;
+
 				$( '.ui-slider-range' ).css('width', '100%');
 				$( '.ui-slider-handle' ).css('left', '100%');
+
 				watermarkImg.removeAttr('src');
 				parentImg.removeAttr('src');
+
 				tabContainer.removeClass('active');
 				tabContainergut.addClass('active');
 
 				wm_fileuploader.setBlocker();
+
 				$('#inputParent').text('');
 				$('#inputWM').text('');
 			};

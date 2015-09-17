@@ -281,12 +281,12 @@ button::-moz-focus-inner {
 
 // RIGHT PART =================== *
 .settings-head {
-    padding-top: 22px;
+	padding-top: 22px;
 }
 .settings-heading {
-    text-align: center;
-    font-size: 26px;
-    margin-bottom: 25px;
+	text-align: center;
+	font-size: 26px;
+	margin-bottom: 25px;
 }
 .settings-body {
 	position: relative;
@@ -328,46 +328,65 @@ button::-moz-focus-inner {
 	margin-bottom: 23px;
 }
 input[type="file"] {
-    opacity: 0;
-    -moz-opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
-    cursor: pointer;
-    z-index: 1;
-}
-.label{
-	position: relative;
-    width: 100%;
-    height: 27px;
-    box-sizing: border-box;
-    border: 1px solid #9eb2c0;
-    border-radius: 3px;
-    background: #fbfcfd;
-    display: block;
-    cursor: pointer;
-    z-index: 1;
-}
-.icon{
-  	position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 39px;
-    height: 100%;
-    background: $color-bg-pink url(../img/common/upload-icon.png) no-repeat 50% 50%;
-    border-radius: 0 3px 3px 0;
-    z-index: 2;
-}
-.inputtext{
+	opacity: 0;
+	-moz-opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+	cursor: pointer;
+	z-index: -1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 	display: block;
-    width: 100%;
-    font-size: 12px;
-    overflow: hidden;
-    color: #9eb2c0;
-    outline: 0;
-    padding: 2px 3px 3px 5px;
-    line-height: 21px;
-    cursor: pointer;
-    height: 27px;
+}
+.label {
+	position: relative;
+	height: 27px;
+	box-sizing: border-box;
+	background: #fbfcfd;
+	display: block;
+	cursor: pointer;
+	z-index: 1;
+	overflow: hidden;
+
+	&:hover .icon {
+		background-color: #e3736c;
+		background-color: -moz-linear-gradient(top,#e3736c 0,#f97e76 100%);
+		background-color: -webkit-gradient(linear,left top,left bottom,color-stop(0,#e3736c),color-stop(100%,#f97e76));
+		background-color: -webkit-linear-gradient(top,#e3736c 0,#f97e76 100%);
+		background-color: -o-linear-gradient(top,#e3736c 0,#f97e76 100%);
+		background-color: -ms-linear-gradient(top,#e3736c 0,#f97e76 100%);
+		background-color: linear-gradient(to bottom,#e3736c 0,#f97e76 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3736c', endColorstr='#f97e76', GradientType=0 );
+	}
+}
+.icon {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 39px;
+	background: $color-bg-pink url(../img/common/upload-icon.png) no-repeat 50% 50%;
+	border-radius: 0 3px 3px 0;
+	z-index: 2;
+	transition: background .2s;
+}
+.inputtext {
+	display: block;
+	font-size: 12px;
+	overflow: hidden;
+	color: #9eb2c0;
+	outline: 0;
+	padding: 2px 3px 3px 5px;
+	line-height: 21px;
+	cursor: pointer;
+	height: 27px;
+	box-sizing: border-box;
+	margin-right: 38px;
+	white-space: nowrap;
+	border: 1px solid #9eb2c0;
+	border-radius: 3px 0 0 3px;
 }
 
 // POSITION PARAMETERS ==================================================== *
@@ -499,16 +518,16 @@ input[type="file"] {
 }
 
 .divForDrag{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 .divForDragMultiply{
-    min-height: 400%;
-    min-width: 400%;
-    position: absolute;
+	min-height: 400%;
+	min-width: 400%;
+	position: absolute;
 }
 
