@@ -544,8 +544,8 @@ var wm_actions;
 			};
 
 			//Вызывает reset
-			var _reset = function() {
-				cleanAll();
+			var _reset = function(){
+				_clean();
 				watermark.css( 'opacity', 1);
 				$( '.ui-slider-range' ).css('width', '100%');
 				$( '.ui-slider-handle' ).css('left', '100%');
