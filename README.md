@@ -46,7 +46,7 @@ $ git clone https://github.com/Lefff/watermark_ls.git
   $ gulp jade
 
   # Компиляция SASS
-  $ gulp compass
+  $ gulp sass
   ```
 
 
