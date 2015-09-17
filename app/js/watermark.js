@@ -505,7 +505,6 @@ var wm_actions;
 				watermark.removeClass('wrapper__watermark_animated');
 				sendedObj.offsetX = 0;
 				sendedObj.offsetY = 0;
-
 			};
 
 
