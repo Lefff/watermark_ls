@@ -152,8 +152,6 @@ var wm_actions;
 
 				sendedObj.top  = offsetY;
 				sendedObj.left = offsetX;
-
-				console.log( sendedObj );
 			};
 
 			// Запрещает вводить буквы в инпутах
@@ -178,15 +176,11 @@ var wm_actions;
 			//Сбрасывает все настройки
 			var _clean = function(ui){
 				input.val(0);
-
-				spanHor.height( gutterPreview );
-				spanVert.width( gutterPreview );
+				spanHor.height(gutterPreview);
+				spanVert.width(gutterPreview);
 
 				canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
 				$('#top-left').addClass('active-watermark-position');
-
-				sendedObj.top  = 0;
-				sendedObj.left = 0;
 			}
 
 			//Переключение табов
@@ -226,16 +220,12 @@ var wm_actions;
 					_clean();
 
 					sendedObj.actionType = 'single';
-
 					sendedObj.top        = 0;
 					sendedObj.left       = 0;
 				}
 
 				sendedObj.offsetX = 0;
 				sendedObj.offsetY = 0;
-
-				}
-
 			};
 
 			//Манипуляции с одной вотермаркой:
@@ -540,7 +530,6 @@ var wm_actions;
 				sendedObj.offsetY = 0;
 
 				return this;
-
 			};
 
 			//Обновляет ссылки на картинки
