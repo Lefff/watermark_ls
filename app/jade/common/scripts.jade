@@ -2,15 +2,19 @@
 //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
 //- script.
 //- 	window.jQuery || document.write('<script src="bower/jquery/dist/jquery.min.js">')
+//build:js js/vendor.js
 script(src="bower/jquery/dist/jquery.min.js")
 script(src="bower/jquery-ui/jquery-ui.min.js")
 script(src="bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js")
 script(src="bower/blueimp-file-upload/js/jquery.iframe-transport.js")
 script(src="bower/blueimp-file-upload/js/jquery.fileupload.js")
-script(src="js/jquery.easytabs.min.js")
-script(src="js/jquery.nicefileinput.min.js")
+// endbuild
+//build:js js/main.js
 script(src="js/custom.js")
 script(src="js/wm_preloader.js")
+script(src="js/wm_lang_switcher.js")
+script(src="js/wm_sharer.js")
 script(src="js/fileUploader.js")
 script(src="js/watermark.js")
 script(src="js/main.js")
+// endbuild

@@ -73,6 +73,7 @@
 					$colCoordX = ( ( $watermarkWidth + $wm_offset['X'] ) * $j ) + $rowCoordX;
 
 					$layer->addLayerOnTop( $watermark, $colCoordX, $rowCoordY, "LT");
+					$layer->mergeAll();
 				}
 			}
 		} else {

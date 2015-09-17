@@ -34,6 +34,7 @@ var wm_fileuploader;
 									.on( 'fileuploaddone', _setImage )
 									.on( 'fileuploadfail', _setError );
 									/*.on( 'fileuploadalways', _progressHide );*/
+
 			};
 
 			//Узнать тип изображения(подложка или водный знак) и запуск прелоадера
@@ -81,7 +82,7 @@ var wm_fileuploader;
 						} else {
 							_optionBox.addClass('settings-body_watermark-loaded');
 						}
-						
+
 						_progressHide();
 
 						wm_actions
@@ -106,7 +107,7 @@ var wm_fileuploader;
 					initHeight  = 534,
 					layerHeight = 0,
 					layerImage  = _imgWrapper.find('.img-parent');
-											
+
 					layerImage.load(function() {
 						layerHeight =  $( this ).height();
 

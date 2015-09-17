@@ -1,10 +1,3 @@
-// стилизация fileinput'ов
-// http://moro.es/projects/jquery-nicefileinput-js/
-$(function() {
-	$("input[type=file]").nicefileinput();
-});
-
-
 
 /**
  * Эмулирования отправки формы с параметрами
@@ -12,6 +5,8 @@ $(function() {
  * @param  {string} data   Параметры в формате key1=val1&key2=val2...
  * @param  {string} method get, post (post по умолчанию)
  */
+//Обновляет имена файлов в инпутах
+
 $.sendEmul = function( url, data, method ) {
 	var inputs = '';
 

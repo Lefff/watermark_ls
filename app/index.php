@@ -1,8 +1,17 @@
 <?php
 	/**
+	 * Подключаем файл с переменными и функциями
+	 */
+	require_once( realpath( dirname( __FILE__ ) . "/php/helpers.php") );
+
+	/**
 	 * Подключаем локализацию языка
 	 */
 	require_once( realpath( dirname( __FILE__ ) . "/php/lang.php") );
+
+
+	//Получаем ссылку
+	$encoded_url = urlencode( getUrl() );
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +23,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width">
-		<meta name="description" content="сайт на jade &amp; sass">
+		<meta name="description" content="<?php echo $lang['title']; ?>">
 		<link rel="stylesheet" type="text/css" href="bower/normalize.css/normalize.css" media="screen, projection, print">
 		<link rel="stylesheet" type="text/css" href="bower/jquery-ui/themes/base/jquery-ui.min.css" media="screen, projection, print">
 		<link rel="stylesheet" type="text/css" href="css/main.css" media="screen, projection, print">
@@ -33,9 +42,9 @@
 				</ul>
 				<div class="socials-box">
 					<ul class="socials-list">
-						<li class="socials-item"><a href="#" class="social-item__fb">fb</a></li>
-						<li class="socials-item"><a href="#" class="social-item__tw">tw</a></li>
-						<li class="socials-item"><a href="#" class="social-item__vk">vk</a></li>
+						<li class="socials-item"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $encoded_url; ?>" class="social-item__fb" rel="share-link">fb</a></li>
+						<li class="socials-item"><a href="http://twitter.com/share?text=<?php echo $lang['title']; ?>&url=<?php echo $encoded_url; ?>" class="social-item__tw" rel="share-link">tw</a></li>
+						<li class="socials-item"><a href="http://vkontakte.ru/share.php?title=<?php echo $lang['title']; ?>&description=<?php echo $lang['title']; ?>&url=<?php echo $encoded_url; ?>" class="social-item__vk" rel="share-link">vk</a></li>
 					</ul>
 				</div>
 			</div>
@@ -62,11 +71,19 @@
 								<div class="settings-block setting-block_decorated">
 									<div class="fileupload-wrap">
 										<div class="settings-block__hint"><?php echo $lang['source_img']; ?></div>
-										<input type="file" placeholder="<?php echo $lang['source_img']; ?>" name="base_image" rel="fileupload">
+										<label for="fileuploadParent" class="label">
+											<span id="inputParent" class="inputtext"></span>
+											<span class="icon"></span>
+											<input type="file" id="fileuploadParent" placeholder="<?php echo $lang['source_img']; ?>" name="base_image" rel="fileupload" class="fileuploadParent fileupload">
+										</label>
 									</div>
 									<div class="fileupload-wrap">
 										<div class="settings-block__hint"><?php echo $lang['watermark_img']; ?></div>
-										<input type="file" placeholder="<?php echo $lang['watermark_img']; ?>" name="watermark_image" rel="fileupload">
+										<label for="fileuploadWM" class="label">
+											<span id="inputWM" class="inputtext"></span>
+											<span class="icon"></span>
+											<input type="file" id="fileuploadWM" placeholder="<?php echo $lang['watermark_img']; ?>" name="watermark_image" rel="fileupload" class="fileuploadWM fileupload">
+										</label>
 									</div>
 								</div>
 								<div class="settings-block setting-block_decorated">
@@ -152,10 +169,10 @@
 		<script src="bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
 		<script src="bower/blueimp-file-upload/js/jquery.fileupload.js"></script>
-		<script src="js/jquery.nicefileinput.min.js"></script>
 		<script src="js/custom.js"></script>
 		<script src="js/wm_preloader.js"></script>
 		<script src="js/wm_lang_switcher.js"></script>
+		<script src="js/wm_sharer.js"></script>
 		<script src="js/fileUploader.js"></script>
 		<script src="js/watermark.js"></script>
 		<script src="js/main.js"></script>

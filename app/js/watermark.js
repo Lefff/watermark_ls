@@ -158,12 +158,12 @@ var wm_actions;
 			var disableInputChar = function(event) {
 				// Разрешаем: backspace, delete, tab и escape
 				if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
-				// Разрешаем: Ctrl+A
+					 // Разрешаем: Ctrl+A
 					(event.keyCode == 65 && event.ctrlKey === true) ||
-				// Разрешаем: home, end, влево, вправо
+					 // Разрешаем: home, end, влево, вправо
 					(event.keyCode >= 35 && event.keyCode <= 39)) {
-				// Ничего не делаем
-					return;
+						 // Ничего не делаем
+						 return;
 				}
 				else {
 					// Убеждаемся, что это цифра, и останавливаем событие keypress
@@ -182,6 +182,7 @@ var wm_actions;
 				canvasPreview.find('.active-watermark-position').removeClass('active-watermark-position');
 				$('#top-left').addClass('active-watermark-position');
 			}
+
 			//Переключение табов
 			var toogleTabs = function( e, ui ) {
 				e.preventDefault();
@@ -330,10 +331,10 @@ var wm_actions;
 				});
 				if (currentVal <= maxHeight){
 					watermark.css('top', currentVal);
-					_currentPos();
+					 _currentPos();
 				}
 				else{
-					return;
+					 return;
 				}
 			};
 
@@ -463,6 +464,52 @@ var wm_actions;
 				}
 			};
 
+			//Сбрасывает настройки после перезагрузки картинки
+			var loadImageClean = function(){
+				parentImg.load(function(){
+					cleanAll();
+				});
+
+				watermarkImg.load(function(){
+					cleanAll();
+				});
+			};
+
+			//Сбрасывает все параметры картинок
+			var cleanAll = function() {
+				_clean();
+				if( tabContainerpos.hasClass('active') ) {
+					tabs2Container.css('display', 'block');
+					tabs1Container.css('display', 'none');
+
+					watermarkImg.nextAll().remove();
+
+					divForDrag.removeClass('divForDragMultiply').removeAttr('style');
+
+					watermark.css({
+						'left': '',
+						'top' : '',
+						'width': '',
+						'height': '',
+					});
+					watermarkImg.removeAttr('style');
+					dragDrop();
+					_clean();
+
+					sendedObj.actionType = 'single';
+					sendedObj.top        = 0;
+					sendedObj.left       = 0;
+				}
+				tabContainer.removeClass('active');
+				tabContainergut.addClass('active');
+				watermark.removeClass('wrapper__watermark_animated');
+				sendedObj.offsetX = 0;
+				sendedObj.offsetY = 0;
+
+			};
+
+
+
 			/*
 			* 1. Обнуляет x и y, чтобы небыло проблем с размером картинки
 			* 2. Убираем анимацию watermark
@@ -496,10 +543,26 @@ var wm_actions;
 
 				return this;
 			};
+			//Меняет название файлов в инпутах
+
+			$("#fileuploadParent").change(function() {
+				var fileName=$("#fileuploadParent").val(),
+				i = fileName.lastIndexOf('\\')+1,
+				name = fileName.substring(i, fileName.length);
+				$('#inputParent').text(name);
+			});
+
+			$("#fileuploadWM").change(function() {
+				var fileName=$("#fileuploadWM").val(),
+				i = fileName.lastIndexOf('\\')+1,
+				name = fileName.substring(i, fileName.length);
+				$('#inputWM').text(name);
+			});
+
 
 			//Вызывает reset
 			var _reset = function(){
-				_clean();
+				cleanAll();
 				watermark.css( 'opacity', 1);
 				$( '.ui-slider-range' ).css('width', '100%');
 				$( '.ui-slider-handle' ).css('left', '100%');
@@ -509,50 +572,9 @@ var wm_actions;
 				tabContainergut.addClass('active');
 
 				wm_fileuploader.setBlocker();
+				$('#inputParent').text('');
+				$('#inputWM').text('');
 			};
-
-			//сбрасывает настройки после перезагрузки картинки
-			var loadImageClean = function(){
-				parentImg.load(function(){
-					cleanAll();
-				});
-
-				watermarkImg.load(function(){
-					cleanAll();
-				});
-			}
-
-			//Сбрасывает все параметры картинок
-			var cleanAll = function(){
-				_clean();
-				if( tabContainerpos.hasClass('active') ) {
-					tabs2Container.css('display', 'block');
-					tabs1Container.css('display', 'none');
-
-					watermarkImg.nextAll().remove();
-
-					divForDrag.removeClass('divForDragMultiply').removeAttr('style');
-
-					watermark.css({
-						'left': '',
-						'top' : '',
-						'width': '',
-						'height': '',
-					});
-					watermarkImg.removeAttr('style');
-					dragDrop();
-					_clean();
-
-					sendedObj.actionType = 'single';
-					sendedObj.top        = 0;
-					sendedObj.left       = 0;
-				}
-				tabContainer.removeClass('active');
-				tabContainergut.addClass('active');
-				watermark.removeClass('wrapper__watermark_animated');
-				sendedObj.offsetX = 0;
-				sendedObj.offsetY = 0;
-			}
 
 			//Отправляет данные на "склейку"
 			var _sendToOverlay = function( e ) {
@@ -588,9 +610,10 @@ var wm_actions;
 			};
 
 			return {
-				init          : init,
-				resetPosition : resetPosition,
-				refreshURLs   : refreshURLs
+				init           : init,
+				resetPosition  : resetPosition,
+				refreshURLs    : refreshURLs
+
 			};
 		})();
 	});

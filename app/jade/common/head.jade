@@ -3,11 +3,17 @@ meta(name="viewport" content="width=device-width")
 //- SEO
 meta(name="description" content="сайт на jade & sass")
 //- STYLES
+// build:css css/vendor.css
 link(rel='stylesheet' type='text/css' href='bower/normalize.css/normalize.css' media='screen, projection, print')
 link(rel='stylesheet' type='text/css' href='bower/jquery-ui/themes/base/jquery-ui.min.css' media='screen, projection, print')
+// endbuild
+// build:css css/main.css
 link(rel='stylesheet' type='text/css' href='css/main.css' media='screen, projection, print')
+// endbuild
 //- FAVICON
 link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
 link(rel="icon" href="favicon.ico" type="image/x-icon")
 //- MODERNIZR
+// build:js js/vendor/modernizr.css
 script(src="bower/modernizr/modernizr.js")
+// endbuild
